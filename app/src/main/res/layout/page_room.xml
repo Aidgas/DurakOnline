@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/page_room_bk_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+
+
+
+            <FrameLayout
+                android:id="@+id/fl_page_room_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#555">
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_page_room_list_icons_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:background="#ee444444"
+                android:clickable="true"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_page_room_list_icons_close"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/style_select_menu_1"
+                        android:clickable="true"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        app:srcCompat="@drawable/style_btn_close1" />
+
+                    <TableLayout
+                        android:id="@+id/tl_page_room_table_icons"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="1dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="2dp"
+                        android:paddingBottom="7dp">
+
+                    </TableLayout>
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_page_room_bkchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="3dp"
+                android:padding="3dp"
+                app:srcCompat="@drawable/bkchange" />
+
+            <TextView
+                android:id="@+id/tv_page_room_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/loading"
+                android:textColor="#0f0"
+                android:textSize="18sp" />
+
+
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:background="#427192">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="3dp"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:id="@+id/iv_page_room_new_message_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:visibility="gone"
+                            app:srcCompat="@drawable/message" />
+
+                        <ImageView
+                            android:id="@+id/iv_page_room_list_icons_open"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/style_select_menu_1"
+                            android:clickable="true"
+                            android:padding="3dp"
+                            android:visibility="gone"
+                            app:srcCompat="@drawable/icon_emotzi" />
+
+                        <TextView
+                            android:id="@+id/tv_page_room_waiting_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center"
+                            android:layout_marginRight="7dp"
+                            android:textColor="#fff"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_page_room_bito_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_btn1"
+                        android:minHeight="34dp"
+                        android:paddingLeft="30dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="30dp"
+                        android:paddingBottom="7dp"
+                        android:text="@string/txt_48"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btn_page_room_bito"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_btn1"
+                        android:minHeight="34dp"
+                        android:paddingLeft="30dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="30dp"
+                        android:paddingBottom="7dp"
+                        android:text="@string/txt_48"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btn_page_room_bery_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_btn1"
+                        android:minHeight="34dp"
+                        android:paddingLeft="30dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="30dp"
+                        android:paddingBottom="7dp"
+                        android:text="@string/txt_49"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btn_page_room_bery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_btn1"
+                        android:minHeight="34dp"
+                        android:paddingLeft="30dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="30dp"
+                        android:paddingBottom="7dp"
+                        android:text="@string/txt_49"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btn_page_room_that_s_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_btn1"
+                        android:minHeight="34dp"
+                        android:paddingLeft="23dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="23dp"
+                        android:paddingBottom="7dp"
+                        android:text="@string/txt_50"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btn_page_room_that_s_all_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_btn1"
+                        android:minHeight="34dp"
+                        android:paddingLeft="23dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="23dp"
+                        android:paddingBottom="7dp"
+                        android:text="@string/txt_50"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btn_page_room_ready_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_btn1"
+                        android:minHeight="34dp"
+                        android:paddingLeft="30dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="30dp"
+                        android:paddingBottom="7dp"
+                        android:text="@string/txt_81"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_page_room_status_txt2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical|center"
+                    android:layout_marginLeft="7dp"
+                    android:text="@string/txt_47"
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_page_room_game_panel"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@drawable/gradient"
+                android:visibility="visible">
+
+                <ProgressBar
+                    android:id="@+id/pb_page_room_waiting_ready_play"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="1000"
+                    android:progress="50"
+                    android:progressDrawable="@drawable/custom_progressbar"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/pb_page_room_waiting"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="1000"
+                    android:progress="50"
+                    android:progressDrawable="@drawable/custom_progressbar"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fl_page_room_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#11000000"
+        android:clickable="true"
+        android:visibility="gone">
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:background="#f1f1f1">
+
+            <FrameLayout
+                android:id="@+id/fl_page_room_user_info_close"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="top|right"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|right"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/style_btn_close0"
+                    android:padding="12dp" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_page_room_popup_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/default_avatar" />
+
+                <LinearLayout
+                    android:id="@+id/btn_page_room_add_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/style_btn2"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/txt_58"
+                        android:textColor="#fff"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_page_room_wait_add_friend"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="7dp"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="7dp"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/wait_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/txt_56" />
+
+                </LinearLayout>
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <TableRow
+                        android:id="@+id/tr_page_room_popup_user_info_raiting"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp"
+                            app:srcCompat="@drawable/star" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/txt_53"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_page_room_popup_raiting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp"
+                            app:srcCompat="@drawable/stat" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/txt_51"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_page_room_popup_total_game"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp"
+                            app:srcCompat="@drawable/total_win" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/txt_52"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_page_room_popup_wins"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp"
+                            app:srcCompat="@drawable/game_over" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/txt_54"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_page_room_popup_defeats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp"
+                            app:srcCompat="@drawable/draw" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/txt_55"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_page_room_popup_draw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#111"
+                            android:textSize="20sp" />
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:id="@+id/tv_page_room_popup_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center"
+                    android:textColor="#111"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_page_room_messages_c"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="50dp"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/style_border"
+            android:padding="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:paddingRight="20dp"
+                        android:text="@string/txt_57"
+                        android:textColor="#111"
+                        android:textSize="19sp" />
+
+                    <FrameLayout
+                        android:id="@+id/fl_page_room_messages_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|right"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/style_btn_close0"
+                            android:padding="10dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/ll_page_room_messages_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </ScrollView>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</FrameLayout>

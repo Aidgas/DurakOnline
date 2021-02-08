@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:minHeight="60dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center|clip_vertical"
+                android:clickable="true"
+                android:padding="5dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/style_btn_settings" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/logo_top" />
+
+                <TextView
+                    android:id="@+id/tv_page_settings_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/txt_7"
+                    android:textColor="#cfcfcf"
+                    android:textSize="23sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#111" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/tile_background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="20dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="7dp"
+                        android:text="@string/txt_61"
+                        android:textColor="#cfcfcf"
+                        android:textSize="23sp" />
+
+                    <RadioGroup
+                        android:id="@+id/page_settings_sort_my_carts"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp">
+
+                        <RadioButton
+                            android:id="@+id/page_settings_sort_my_carts_abc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:paddingLeft="5dp"
+                            android:text="@string/txt_62"
+                            android:textColor="#cfcfcf"
+                            android:textSize="21sp"
+                            android:theme="@style/MyRadioButton" />
+
+                        <RadioButton
+                            android:id="@+id/page_settings_sort_my_carts_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingLeft="5dp"
+                            android:text="@string/txt_63"
+                            android:textColor="#cfcfcf"
+                            android:textSize="21sp"
+                            android:theme="@style/MyRadioButton" />
+
+                        <RadioButton
+                            android:id="@+id/page_settings_sort_my_carts_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+
+                            android:paddingLeft="5dp"
+                            android:text="@string/txt_64"
+                            android:textColor="#cfcfcf"
+                            android:textSize="21sp"
+                            android:theme="@style/MyRadioButton" />
+
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="20dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="7dp"
+                        android:text="@string/txt_65"
+                        android:textColor="#cfcfcf"
+                        android:textSize="23sp" />
+
+                    <RadioGroup
+                        android:id="@+id/page_settings_sort_trump_cards"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp">
+
+                        <RadioButton
+                            android:id="@+id/page_settings_sort_trump_cards_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:paddingLeft="5dp"
+                            android:text="@string/txt_66"
+                            android:textColor="#cfcfcf"
+                            android:textSize="21sp"
+                            android:theme="@style/MyRadioButton" />
+
+                        <RadioButton
+                            android:id="@+id/page_settings_sort_trump_cards_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingLeft="5dp"
+                            android:text="@string/txt_67"
+                            android:textColor="#cfcfcf"
+                            android:textSize="21sp"
+                            android:theme="@style/MyRadioButton" />
+
+                        <RadioButton
+                            android:id="@+id/page_settings_sort_trump_cards_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+
+                            android:paddingLeft="5dp"
+                            android:text="@string/txt_64"
+                            android:textColor="#cfcfcf"
+                            android:textSize="21sp"
+                            android:theme="@style/MyRadioButton" />
+
+
+                    </RadioGroup>
+                </LinearLayout>
+
+
+                <CheckBox
+                    android:id="@+id/cb_page_settings_show_hints_toss_beat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="25dp"
+                    android:checked="true"
+                    android:text="@string/txt_105"
+                    android:textColor="#dfdfdf"
+                    android:textSize="22sp"
+                    android:theme="@style/MyCheckbox" />
+
+                <CheckBox
+                    android:id="@+id/cb_page_settings_sound_in_game"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:checked="true"
+                    android:text="@string/txt_95"
+                    android:textColor="#dfdfdf"
+                    android:textSize="22sp"
+                    android:theme="@style/MyCheckbox" />
+
+                <CheckBox
+                    android:id="@+id/cb_page_settings_sound_ready_play"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:checked="true"
+                    android:text="@string/txt_116"
+                    android:textColor="#dfdfdf"
+                    android:textSize="22sp"
+                    android:theme="@style/MyCheckbox" />
+
+                <CheckBox
+                    android:id="@+id/cb_page_settings_vibration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:checked="true"
+                    android:text="@string/txt_100"
+                    android:textColor="#dfdfdf"
+                    android:textSize="22sp"
+                    android:theme="@style/MyCheckbox" />
+
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </LinearLayout>
+</FrameLayout>

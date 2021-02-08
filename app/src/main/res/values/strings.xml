@@ -1,0 +1,159 @@
+<resources>
+    <string name="app_name">Durak</string>
+    <string name="signed_out">Signed out</string>
+    <string name="loading">LOADING...</string>
+    <!--
+    <string name="signed_in_fmt">Signed in as: %s</string>
+    <string name="title_text">Google Sign-In\nQuickstart</string>
+    <string name="desc_google_icon">Google Logo</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="sign_out">Sign Out</string>
+
+    <string name="connection_server">Соединение с сервером...</string>
+    <string name="logout">Выйти</string>
+
+    <string name="menu_1">СОЗДАТЬ ИГРУ</string>
+    <string name="menu_2">НОЙТИ ИГРУ</string>
+    <string name="menu_3">ПРАВИЛА ИГРЫ</string>-->
+
+    <string name="txt_0">GAME DURAK</string>
+    <string name="txt_1">GAME DURAK</string>
+    <string name="txt_2">FIND GAME</string>
+    <string name="txt_3">CREATE GAME</string>
+    <string name="txt_4">TOP UP BALANCE</string>
+    <string name="txt_5">GENERAL RATING</string>
+    <string name="txt_6">FRIENDS</string>
+    <string name="txt_7">SETTINGS</string>
+    <string name="txt_8">SHARE</string>
+
+    <string name="txt_9">PROFILE</string>
+    <string name="txt_10">Logout</string>
+    <string name="txt_11">rating</string>
+    <string name="txt_12">balance</string>
+    <string name="txt_13">total games</string>
+    <string name="txt_14">victories</string>
+    <string name="txt_15">draws</string>
+    <string name="txt_16">friends</string>
+    <string name="txt_17">Last entrance</string>
+    <string name="txt_18">Game bet</string>
+    <string name="txt_19">Players in the game</string>
+    <string name="txt_20">Type game</string>
+    <string name="txt_21">Usual</string>
+    <string name="txt_22">Transfer move</string>
+    <string name="txt_23">Toss</string>
+    <string name="txt_24">All</string>
+    <string name="txt_25">Neighbors</string>
+    <string name="txt_26">Password</string>
+    <string name="txt_27">Playing with friends</string>
+    <string name="txt_28">no bids</string>
+    <string name="txt_29">RATING TABLE</string>
+    <string name="txt_30">Find friends</string>
+    <string name="txt_31">SEARCH FRIENDS</string>
+    <string name="txt_32">Enter nickname</string>
+    <string name="txt_33">GAME RULES</string>
+    <string name="txt_34">SEARCH  .  .  .</string>
+    <string name="txt_35">No data</string>
+    <string name="txt_36">36 cards</string>
+    <string name="txt_37">52 cards</string>
+    <string name="txt_38">Deck of cards</string>
+    <string name="txt_39">CREATE</string>
+    <string name="txt_40">Sign in with Google</string>
+    <string name="txt_41">My balance</string>
+    <string name="txt_42">Watch the video\nand get 200 lavrs</string>
+    <string name="txt_43">I\'m lucky</string>
+    <string name="txt_44">No win</string>
+    <string name="txt_45">AGAIN</string>
+    <string name="txt_46">→ Connecting to server...</string>
+    <string name="txt_47">⏲ WAITING FOR PLAYERS...</string>
+    <string name="txt_48">COMPLETE</string>
+    <string name="txt_49">TAKE</string>
+    <string name="txt_50">* PASS *</string>
+    <string name="txt_51">Total games</string>
+    <string name="txt_52">Victories</string>
+    <string name="txt_53">Rating</string>
+    <string name="txt_54">Поражений</string>
+    <string name="txt_55">Defeats</string>
+    <string name="txt_56">Add ...</string>
+    <string name="txt_57">Add as Friend</string>
+    <string name="txt_58">ADD TO FRIENDS</string>
+    <string name="txt_59">SEARCH GAMES</string>
+    <string name="txt_60">Find</string>
+    <string name="txt_61">Sort my cards</string>
+    <string name="txt_62">In ascending order</string>
+    <string name="txt_63">In descending order</string>
+    <string name="txt_64">No sorting</string>
+    <string name="txt_65">Trump card</string>
+    <string name="txt_66">On the left</string>
+    <string name="txt_67">On the right</string>
+    <string name="txt_68">lavr</string>
+    <string name="txt_69">lavrs</string>
+    <string name="txt_70">lavrs</string>
+    <string name="txt_71">Yes</string>
+    <string name="txt_72">No</string>
+    <string name="txt_73">Remove from friends</string>
+    <string name="txt_74">To add</string>
+    <string name="txt_75">BETA VERSION</string>
+    <string name="txt_76">No friends selected</string>
+    <string name="txt_77">Not enough friends to start the game</string>
+    <string name="txt_78">Many friends to start the game</string>
+    <string name="txt_79">Not enough lavrs</string>
+    <string name="txt_80">By clicking the \"Sign in with Google\" button, you accept our &lt;u>User Agreement&lt;/u> and &lt;u> Privacy Policy &lt;/u></string>
+    <string name="txt_81">✓ I\'M READY</string>
+    <string name="txt_82">Quit the game?</string>
+    <string name="txt_83">Press again to exit</string>
+    <string name="txt_84">Quit the program?</string>
+    <string name="txt_85">MY TURN</string>
+    <string name="txt_86">Friend request has been sent</string>
+    <string name="txt_87">Password is incorrect</string>
+    <string name="txt_88">Enter the password</string>
+    <string name="txt_89">Cancel</string>
+    <string name="txt_90">Minimum password length is 3 characters</string>
+    <string name="txt_91">Download Durak Online card game on your smartphone. Download the app today from</string>
+    <string name="txt_92">Network error</string>
+    <string name="txt_93">ROULETTE</string>
+    <string name="txt_94">Rate</string>
+    <string name="txt_95">Sounds in the game</string>
+    <string name="txt_96">New version available</string>
+    <string name="txt_97">Update</string>
+    <string name="txt_98">Invitation to the game</string>
+    <string name="txt_99">from</string>
+    <string name="txt_100">Vibration</string>
+    <string name="txt_101">ADD CARD</string>
+    <string name="txt_102">Playing with bots</string>
+    <string name="txt_103">Transfer to a friend</string>
+    <string name="txt_104">Translation of lavrs from:</string>
+    <string name="txt_105">Show hints cards</string>
+    <string name="txt_106">Card back</string>
+    <string name="txt_107">Card style</string>
+    <string name="txt_108">No permission</string>
+    <string name="txt_109">Set the memory permissions in the app settings to save the app settings</string>
+    <string name="txt_110">Memory permissions</string>
+    <string name="txt_111">Set the permissions on the memory to save the application settings</string>
+    <string name="txt_112">SHOP / CHOOSE</string>
+    <string name="txt_113">MY RATING</string>
+    <string name="txt_114">Top up your balance for purchase</string>
+    <string name="txt_115">No products to buy</string>
+    <string name="txt_116">Sound ready stroke</string>
+    <string name="txt_117">game over</string>
+
+
+    <string name="cmd_1" translatable="false">INIT_SESSION_8687</string>
+    <string name="cmd_2" translatable="false">INIT_SESSION_2</string>
+    <string name="cmd_3" translatable="false">CREATE_ROOM</string>
+    <string name="cmd_4" translatable="false">SEND_MONEY_MY_FRIEND</string>
+    <string name="cmd_5" translatable="false">TOSS_XOD_TRANSFER_FOLL</string>
+    <string name="cmd_6" translatable="false">TOSS_2_XOD</string>
+    <string name="cmd_7" translatable="false">TOSS_3_XOD</string>
+    <string name="cmd_8" translatable="false">TOSS_XOD</string>
+    <string name="cmd_9" translatable="false">BEAT_XOD</string>
+    <string name="cmd_10" translatable="false">ADD_TO_FRIENDS</string>
+    <string name="cmd_11" translatable="false">READY_PLAY</string>
+    <string name="cmd_12" translatable="false">BERY</string>
+    <string name="cmd_13" translatable="false">BITO</string>
+    <string name="cmd_14" translatable="false">TAHT_S_ALL</string>
+    <string name="cmd_15" translatable="false">BITO_2</string>
+    <string name="cmd_16" translatable="false">BERY_2</string>
+    <string name="cmd_17" translatable="false">THATS_ALL_2</string>
+    <string name="cmd_18" translatable="false">LOAD_LIST_MY_FRIENDS</string>
+
+</resources>

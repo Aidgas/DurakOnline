@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0076c9</color>
+    <color name="colorPrimaryDark">#2556b8</color>
+    <color name="colorAccent">#ccc</color>
+    <color name="colorStatusBar">#000000</color>
+
+    <color name="blue_grey_500">#607D8B</color>
+    <color name="blue_grey_600">#546E7A</color>
+    <color name="blue_grey_700">#455A64</color>
+    <color name="blue_grey_800">#37474F</color>
+    <color name="blue_grey_900">#263238</color>
+
+    <color name="green_1">#009000</color>
+
+    <color name="c12">#ff6600</color>
+    <color name="c13">#00ff00</color>
+    <color name="c14">#008f00</color>
+
+</resources>

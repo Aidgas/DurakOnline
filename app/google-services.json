@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "457473160264",
+    "project_id": "duraconlinegame"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457473160264:android:5151a28e486d3386",
+        "android_client_info": {
+          "package_name": "durakonline.sk.durakonline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457473160264-9uq5akg8o89cbuu8n33i88qnco0ui04r.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "457473160264-laqvhhei6f46uk5m8atsgc3aklomm5bi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "durakonline.sk.durakonline",
+            "certificate_hash": "37189b4a3b2aeb668e9bf155e8a36d7d87e00e2b"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_g6t7mPOKM1X0m2hSnLVNxvBCmWkPNN4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

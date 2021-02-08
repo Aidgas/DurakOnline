@@ -21,7 +21,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -35,7 +34,6 @@ import android.util.DisplayMetrics;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,8 +120,6 @@ public class MainActivity extends AppCompatActivity
     public static final int screen_width;
     public static final int screen_height;
     public static final int REQUEST_PERMISSION_2 = 5;
-    //public static final String LANG_RU = "RU";
-    //public static final String LANG_EN = "EN";
     private static final String TAG = "TAG";
     private static final int RC_SIGN_IN = 9001;
     static boolean active = false;
@@ -168,15 +164,10 @@ public class MainActivity extends AppCompatActivity
     String app_name = "";
     SessionInfo session_info = new SessionInfo();
 
-    /*public final int ACTION_END_ANIMATION_FLY_NONE              = 0x00;
-    public final int ACTION_END_ANIMATION_FLY_SHOW_BTN_BITO       = 0x01;
-    public final int ACTION_END_ANIMATION_FLY_SHOW_BTN_BERY       = 0x02;
-    public final int ACTION_END_ANIMATION_FLY_SHOW_BTN_THAT_ALL   = 0x03;*/
     private RoomSurfaceView _draw_task = null;
     private RuletSurfaceView _draw_rulet = null;
     private HashMap<Integer, UiItemFriends> map_ui_friends = new HashMap<>();
 
-    //private int action_end_animation_fly = ACTION_END_ANIMATION_FLY_NONE;
     HashMap<Integer, UiItemFriends> map_ui_search_friends = new HashMap<>();
     List<UiItemRating> list_rating = new ArrayList<>();
     List<CheckBox> list_checkbox = new ArrayList<>();
@@ -242,76 +233,12 @@ public class MainActivity extends AppCompatActivity
                 , true);
     }
 
-    /**
-     * Запрос разрешений. ГАЛЕРЕЯ
-     */
-    /*public void requestPermission_2()
-    {
-        if (
-                (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))
-                        || (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE))
-                )
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle( getString(R.string.txt_108) )
-                    .setMessage( getString(R.string.txt_109) )
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int id)
-                        {
-                            Intent appSettingsIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                    Uri.parse("package:" + getPackageName()));
-                            startActivityForResult(appSettingsIntent, 1024);
-                        }
-                    });
-            builder.create().show();
-        }
-        else
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(getString(R.string.txt_110))
-                    .setMessage( getString(R.string.txt_111) )
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int id)
-                        {
-                            ActivityCompat.requestPermissions(MainActivity.this, new String[]
-                                    {
-                                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                            Manifest.permission.READ_EXTERNAL_STORAGE
-                                    }, REQUEST_PERMISSION_2);
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode
-            , @NonNull String[] permissions
-            , @NonNull int[] grantResults)
-    {
-        if (requestCode == REQUEST_PERMISSION_2 && grantResults.length == 1)
-        {
-            if(
-                    (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    )
-            {
-                init_app();
-            }
-
-        }
-
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }*/
 
     @Override
     public void onConfigurationChanged(Configuration newConfig)
     {
         super.onConfigurationChanged(newConfig);
 
-        // In some cases modifying newConfig leads to unexpected behavior,
-        // so it's better to edit new instance.
         Configuration configuration = new Configuration(newConfig);
         Utils.adjustFontScale(getApplicationContext(), configuration);
     }
@@ -329,9 +256,6 @@ public class MainActivity extends AppCompatActivity
 
         show_page_first_page();
 
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        //getConfiguration().orientation
-
         try
         {
             this.VERSION_APP = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
@@ -340,19 +264,6 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        /*String languageToLoad  = "en"; // your language
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());*/
-
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        /*getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
-                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);*/
 
         HOST = JniApi.f1();
 
@@ -361,44 +272,6 @@ public class MainActivity extends AppCompatActivity
         TCP_PORT_SERVER_1 = JniApi.port1();
         TCP_PORT_SERVER_2 = JniApi.port2();
 
-        //MobileAds.initialize(this, "ca-app-pub-9352011444644710~4773408865");
-        //UnityAds.initialize(this, "2950505", this);
-
-        /*Vungle.init("5c080453d7989c0019cb2d26", getApplicationContext(), new InitCallback() {
-            @Override
-            public void onSuccess() {
-                // Initialization has succeeded and SDK is ready to load an ad or play one if there
-                // is one pre-cached already
-
-                Toast.makeText(MainActivity.this, "Initialization has succeeded and SDK",Toast.LENGTH_SHORT).show();
-
-                if (Vungle.isInitialized())
-                {
-                    Vungle.loadAd("DEFAULT-3981593", new LoadAdCallback()
-                    {
-                        @Override
-                        public void onAdLoad(String placementReferenceId) { }
-
-                        @Override
-                        public void onError(String placementReferenceId, Throwable throwable) {
-                            // Load ad error occurred - throwable.getLocalizedMessage() contains error message
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                // Initialization error occurred - throwable.getLocalizedMessage() contains error message
-            }
-
-            @Override
-            public void onAutoCacheAdAvailable(String placementId) {
-                // Callback to notify when an ad becomes available for the auto-cached placement
-                // NOTE: This callback works only for the auto-cached placement. Otherwise, please use
-                // LoadAdCallback with loadAd API for loading placements.
-            }
-        });*/
 
         this._scale_px = this.getResources().getDisplayMetrics().density;
 
@@ -409,64 +282,24 @@ public class MainActivity extends AppCompatActivity
         double y = Math.pow(dm.heightPixels / dm.ydpi, 2);
         screenInches = Math.sqrt(x + y);
         screenInches = (double) Math.round(screenInches * 10) / 10;
-        //Log.d("TAG10", "Screen inches : " + screenInches);
 
-
-        //Log.i("TAG10", "densityDpi: " + String.valueOf(this.getResources().getDisplayMetrics().densityDpi));
-        //Log.i("TAG10", "dipToPixels 10: " + String.valueOf(Utils.dipToPixels(this, 10)));
-        //Log.i("TAG10", "pixelsToSp 10: " + String.valueOf(Utils.pixelsToSp(this, 10f)));
 
         app_name = Utils.getApplicationName(MainActivity.this);
 
         app_setting = new AppSettings();
 
-
-
-        //this._is_first_run = app_setting.db.getKeyValue("is_first_run", "1").equals("1") ? true : false;
-
-        //_fontApp              = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
-        //_fontApp_bold         = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
-
         _fontApp = Typeface.createFromAsset(getAssets(), "fonts/Russo_One/RussoOne-Regular.ttf");
         _fontApp_bold2 = Typeface.createFromAsset(getAssets(), "fonts/RobotoCondensed-Bold.ttf");
         _fontApp_bold3 = Typeface.createFromAsset(getAssets(), "fonts/fira-mono.bold.ttf");
 
-        //_fontApp = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
-        //_fontApp_bold = Typeface.createFromAsset(getAssets(), "fonts/font.ttf");
-
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancel(10955);
 
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-
-        //setContentView(R.layout.activity_main);
-
-        //show_page_add_money();
-        //show_page_menu();
-        //close_app();
-        //show_page_room();
-
-
-        // Views
-        //mStatusTextView = (TextView) findViewById(R.id.status);
-
-        // Button listeners
-        /*findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
-        findViewById(R.id.disconnect_button).setOnClickListener(this);*/
-
-        // [START configure_signin]
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("457473160264-9uq5akg8o89cbuu8n33i88qnco0ui04r.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
-        // [END configure_signin]
 
-        // [START build_client]
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, new GoogleApiClient.OnConnectionFailedListener()
                 {
@@ -478,16 +311,6 @@ public class MainActivity extends AppCompatActivity
                 } /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        // [END build_clientt
-
-        /*if( ! Utils.checkPermission_2(getApplicationContext()) )
-        {
-            requestPermission_2();
-        }
-        else
-        {
-            init_app();
-        }*/
 
         init_app();
     }
@@ -501,11 +324,6 @@ public class MainActivity extends AppCompatActivity
     {
         return _fontApp_bold;
     }
-
-    /*public Typeface get_fontAppBold3()
-    {
-        return _fontApp_bold3;
-    }*/
 
     public AccountInfo getAccoutInfo()
     {
@@ -527,8 +345,6 @@ public class MainActivity extends AppCompatActivity
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (opr.isDone())
         {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly.
             Log.d(TAG, "Got cached sign-in");
             GoogleSignInResult result = opr.get();
             handleSignInResult(result);
@@ -537,12 +353,6 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            //show_page_auth();
-
-            // Если пользователь ранее не входил в систему на этом устройстве или срок действия входа истек,
-            // эта асинхронная ветвь попытается выполнить вход в систему пользователя в автоматическом режиме.  Кросс-устройство
-            // единый вход будет происходить в этой ветке.
-            //showProgressDialog();
             opr.setResultCallback(new ResultCallback<GoogleSignInResult>()
             {
                 @Override
@@ -560,11 +370,10 @@ public class MainActivity extends AppCompatActivity
     {
         super.onStart();
 
-        if( db.getKeyValue(getString(R.string.cmd_1), "0").equals("0") )
+        if (db.getKeyValue(getString(R.string.cmd_1), "0").equals("0"))
         {
             if (network == null)
             {
-                //signOut();
                 authGoogle();
             }
         }
@@ -584,8 +393,6 @@ public class MainActivity extends AppCompatActivity
         mRewardedVideoAd.resume(this);
         super.onResume();
 
-        //inPause = false;
-        //startAppAd.onResume();
         if (_draw_task != null)
         {
             _draw_task.onResume();
@@ -594,7 +401,7 @@ public class MainActivity extends AppCompatActivity
 
     private void init_telephonyManager()
     {
-        if( ! Utils.checkPermission_2(this) )
+        if (!Utils.checkPermission_2(this))
         {
             return;
         }
@@ -639,7 +446,6 @@ public class MainActivity extends AppCompatActivity
                             Log.i("Phone", String.valueOf(state));
                         }
                     }
-                    //super.onCallStateChanged(state, incomingNumber);
                 }
             }, new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED));
         }
@@ -651,8 +457,6 @@ public class MainActivity extends AppCompatActivity
         mRewardedVideoAd.pause(this);
         super.onPause();
 
-        //inPause = true;
-        //startAppAd.onPause();
         if (_draw_task != null)
         {
             _draw_task.onPause();
@@ -666,7 +470,6 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
     }
 
-    // [START onActivityResult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -680,7 +483,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // [START handleSignInResult]
     private void handleSignInResult(GoogleSignInResult result)
     {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
@@ -693,7 +495,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     FrameLayout fl = findViewById(R.id.fl_page_auth_wait);
 
-                    if( fl != null )
+                    if (fl != null)
                     {
                         fl.setVisibility(View.VISIBLE);
                     }
@@ -714,8 +516,7 @@ public class MainActivity extends AppCompatActivity
 
             if (acct.getPhotoUrl() == null)
             {
-                accout_info.personPhoto = "";//BitmapFactory.decodeResource( getResources(), R.drawable.default_avatar );
-                //show_page_menu();
+                accout_info.personPhoto = "";
             }
             else
             {
@@ -728,7 +529,7 @@ public class MainActivity extends AppCompatActivity
             db.setKeyValue("accout_info.personEmail", accout_info.personEmail);
             db.setKeyValue("accout_info.fisrtName", accout_info.fisrtName);
 
-            if( accout_info.lastName != null )
+            if (accout_info.lastName != null)
             {
                 db.setKeyValue("accout_info.lastName", accout_info.lastName);
             }
@@ -739,37 +540,14 @@ public class MainActivity extends AppCompatActivity
 
             db.setKeyValue("accout_info.personPhoto", accout_info.personPhoto);
 
-            //app_setting.saveAccountInfo(accout_info);
 
             connection_server();
-            //show_page_connection_server();
         }
         else
         {
             if (result.getStatus().getStatusCode() == CommonStatusCodes.NETWORK_ERROR)
             {
-                if (sv_page == SV_PAGE_CONNECTION_SERVER)
-                {
-                    runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            /*TextView tv = (TextView) findViewById(R.id.tv_page_connection_server_status);
-
-                            if (tv != null)
-                            {
-                                tv.setText("Ошибка сети");
-                                tv.setTextColor(Color.RED);
-                                tv.setTextSize(25);
-
-                                FrameLayout fl = (FrameLayout) findViewById(R.id.fl_page_connection_server_root);
-                                fl.setBackgroundResource(R.drawable.style_bk_img_21);
-                            }*/
-                        }
-                    });
-                }
-                else if (sv_page == SV_PAGE_AUTH)
+                if (sv_page == SV_PAGE_AUTH)
                 {
                     runOnUiThread(new Runnable()
                     {
@@ -790,10 +568,6 @@ public class MainActivity extends AppCompatActivity
             }
             else if (result.getStatus().getStatusCode() == CommonStatusCodes.SIGN_IN_REQUIRED)
             {
-                //signIn();
-                //show_page_auth();
-
-                //show_page_auth();
 
                 if (result.getSignInAccount() == null)
                 {
@@ -806,14 +580,6 @@ public class MainActivity extends AppCompatActivity
 
                 show_page_auth();
             }
-            /*else
-            {
-                //authGoogle();
-                signIn();
-            }*/
-
-            //CommonStatusCodes.DEVELOPER_ERROR
-            // Signed out, show unauthenticated UI.
         }
     }
 
@@ -828,7 +594,7 @@ public class MainActivity extends AppCompatActivity
 
     private void signInReset()
     {
-        Intent signInIntent=Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         mGoogleApiClient.clearDefaultAccountAndReconnect();
 
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -836,8 +602,6 @@ public class MainActivity extends AppCompatActivity
         mGoogleApiClient.connect();
     }
 
-
-    // [START signOut]
     private void signOut()
     {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -846,15 +610,10 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResult(Status status)
                     {
-                        // [START_EXCLUDE]
-
-                        // [END_EXCLUDE]
-
                         close_app();
                     }
                 });
     }
-    // [END onActivityResult]
 
     // [START revokeAccess]
     private void revokeAccess()
@@ -865,19 +624,12 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResult(Status status)
                     {
-                        // [START_EXCLUDE]
-
-                        // [END_EXCLUDE]
                     }
                 });
     }
-    // [END handleSignInResult]
 
     private void init_app()
     {
-        //Remove notification bar
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         token = db.getKeyValue("accout_info.token", "");
 
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -902,18 +654,6 @@ public class MainActivity extends AppCompatActivity
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorStatusBar));
         }
 
-        /*if (app_setting.db.getKeyValue("init_ok", "0").equals("1"))
-        {
-            accout_info = app_setting.loadAccountInfo();
-
-            show_page_connection_server();
-        }
-        else
-        {
-            show_page_auth();
-        }*/
-
-
         deal_gin = MediaPlayer.create(this, R.raw.deal_gin);
         deal_gin.setVolume(0.25f, 0.25f);
 
@@ -935,13 +675,6 @@ public class MainActivity extends AppCompatActivity
         myxod.setVolume(0.05f, 0.05f);
 
         init_telephonyManager();
-
-        //signIn();
-
-        /*if (_is_first_run)
-        {
-            app_setting.db.setKeyValue("is_first_run", "0");
-        }*/
 
         // Use an activity context to get the rewarded video instance.
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
@@ -974,51 +707,54 @@ public class MainActivity extends AppCompatActivity
                 };
                 wt.start();
 
-                //Toast.makeText(MainActivity.this, "onRewarded! currency: " + reward.getType() + " amount: " +
-                //        reward.getAmount(), Toast.LENGTH_SHORT).show();
-                // Reward the user.
-
                 mRewardedVideoAd.loadAd("ca-app-pub-9352011444644710/4746199141", new AdRequest.Builder().build());
                 //mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
             }
 
             @Override
-            public void onRewardedVideoAdLeftApplication() {
+            public void onRewardedVideoAdLeftApplication()
+            {
                 //Toast.makeText(MainActivity.this, "onRewardedVideoAdLeftApplication",Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onRewardedVideoAdClosed() {
+            public void onRewardedVideoAdClosed()
+            {
                 //Toast.makeText(MainActivity.this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
 
-                if( onRewardedVideoAd )
+                if (onRewardedVideoAd)
                 {
                     runAnimationAfterVideoAd();
                 }
             }
 
             @Override
-            public void onRewardedVideoAdFailedToLoad(int errorCode) {
+            public void onRewardedVideoAdFailedToLoad(int errorCode)
+            {
                 //Toast.makeText(MainActivity.this, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onRewardedVideoAdLoaded() {
+            public void onRewardedVideoAdLoaded()
+            {
                 //Toast.makeText(MainActivity.this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onRewardedVideoAdOpened() {
+            public void onRewardedVideoAdOpened()
+            {
                 //Toast.makeText(MainActivity.this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onRewardedVideoStarted() {
+            public void onRewardedVideoStarted()
+            {
                 //Toast.makeText(MainActivity.this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onRewardedVideoCompleted() {
+            public void onRewardedVideoCompleted()
+            {
                 //Toast.makeText(MainActivity.this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
             }
         });
@@ -1034,99 +770,6 @@ public class MainActivity extends AppCompatActivity
                     public void run()
                     {
                         mRewardedVideoAd.loadAd("ca-app-pub-9352011444644710/4746199141", new AdRequest.Builder().build());
-                        //mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
-
-                        /*Ap360Banner airPush360Banner = new Ap360Banner(MainActivity.this, 0);
-                        airPush360Banner.setEventsListener(new ApEventsListener() {
-                            @Override
-                            public void onLoaded(ApPreparedAd iAirPushPreparedAd) {
-                                iAirPushPreparedAd.show();
-
-                                Toast.makeText(MainActivity.this, "airPush360Banner onLoaded", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onFailed(String s) {
-                                Toast.makeText(MainActivity.this, "airPush360Banner onFailed", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onClicked() {
-                                Toast.makeText(MainActivity.this, "airPush360Banner onClicked", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onOpened() {
-                                Toast.makeText(MainActivity.this, "airPush360Banner onOpened", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onClosed() {
-                                Toast.makeText(MainActivity.this, "airPush360Banner onClosed", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onLeaveApplication() {
-                                Toast.makeText(MainActivity.this, "airPush360Banner onLeaveApplication", Toast.LENGTH_SHORT).show();
-                            }
-
-
-                        });
-                        airPush360Banner.load();*/
-
-
-                        /*ApSmartWall airPushSmartWall = new ApSmartWall(MainActivity.this);
-                        airPushSmartWall.setEventsListener(new ApEventsListener() {
-                            @Override
-                            public void onLoaded(ApPreparedAd iAirPushPreparedAd) {
-                                iAirPushPreparedAd.show();
-                                Toast.makeText(MainActivity.this, "airPushSmartWall onLoaded", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onFailed(String s) {
-                                Toast.makeText(MainActivity.this, "airPushSmartWall onFailed", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onClicked() {
-                                Toast.makeText(MainActivity.this, "airPushSmartWall onClicked", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onOpened() {
-                                Toast.makeText(MainActivity.this, "airPushSmartWall onOpened", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onClosed() {
-                                Toast.makeText(MainActivity.this, "airPushSmartWall onClosed", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onLeaveApplication() {
-                                Toast.makeText(MainActivity.this, "airPushSmartWall onLeaveApplication", Toast.LENGTH_SHORT).show();
-                            }
-
-
-                        });
-                        airPushSmartWall.load();*//*
-
-
-                        StartAppSDK.init(MainActivity.this, "211202863", true);
-
-                        StartAppAd.disableSplash();
-                        StartAppAd.disableAutoInterstitial();
-
-
-                        /*startAppAd.setVideoListener(new VideoListener() {
-                            @Override
-                            public void onVideoCompleted()
-                            {
-                                // Grant user with the reward
-                                Toast.makeText(MainActivity.this, "setVideoListener", Toast.LENGTH_SHORT).show();
-                            }
-                        });*/
                     }
                 });
 
@@ -1135,7 +778,6 @@ public class MainActivity extends AppCompatActivity
         wt.start();
 
     }
-    // [END signIn]
 
     private void setFont(ViewGroup group, Typeface font)
     {
@@ -1170,7 +812,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-    // [END signOut]
 
     private void show_page_profile()
     {
@@ -1283,8 +924,6 @@ public class MainActivity extends AppCompatActivity
         TextView tv_page_main2_uname = (TextView) findViewById(R.id.tv_page_main2_uname);
 
         tv_page_main2_uname.setText(accout_info.fisrtName + " " + accout_info.lastName);
-
-
     }
 
     private void connection_2(long room_id)
@@ -1352,7 +991,7 @@ public class MainActivity extends AppCompatActivity
             _draw_task._stop_thread();
         }
 
-        if( alert_dialog_out_of_room != null )
+        if (alert_dialog_out_of_room != null)
         {
             alert_dialog_out_of_room.dismiss();
             alert_dialog_out_of_room = null;
@@ -1388,15 +1027,6 @@ public class MainActivity extends AppCompatActivity
         sv_page = SV_PAGE_MENU;
         removeAllOldFragmentsThisApp();
 
-        /*Configuration configuration = getResources().getConfiguration();
-        configuration.fontScale=(float) 0.85; //0.85 small size, 1 normal size, 1,15 big etc
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        metrics.scaledDensity = configuration.fontScale * metrics.density;
-        getBaseContext().getResources().updateConfiguration(configuration, metrics);*/
-
-
         setContentView(R.layout.page_menu);
 
 
@@ -1414,7 +1044,7 @@ public class MainActivity extends AppCompatActivity
         TextView tv_2 = (TextView) findViewById(R.id.tv_page_menu_statistic_raiting);
 
         tv_1.setText(String.valueOf(accout_info.balans) + " " + Utils.getCorrectSuffix(accout_info.balans, getString(R.string.txt_68), getString(R.string.txt_69), getString(R.string.txt_70)));
-        tv_2.setText(String.valueOf( getString(R.string.txt_113) + ": " + accout_info.raiting));
+        tv_2.setText(String.valueOf(getString(R.string.txt_113) + ": " + accout_info.raiting));
 
         if (iv != null)
         {
@@ -1563,15 +1193,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        /*tr = (TableRow) findViewById(R.id.tr_page_main_open_profile);
-        tr.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                show_page_profile();
-            }
-        });*/
 
         LinearLayout ll_photo = findViewById(R.id.ll_page_menu_avatar_photo);
         ll_photo.setOnClickListener(new View.OnClickListener()
@@ -1582,16 +1203,6 @@ public class MainActivity extends AppCompatActivity
                 show_page_profile();
             }
         });
-
-        //accout_info.balans
-
-        /*android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-        StatisticTop fragment = (StatisticTop) fm.findFragmentById(R.id.page_main_top_info);
-
-        if (fragment != null)
-        {
-            fragment.setMoneyText(String.valueOf(accout_info.balans));
-        }*/
 
         Bundle b = getIntent().getExtras();
 
@@ -1649,7 +1260,7 @@ public class MainActivity extends AppCompatActivity
         TextView tv = MainActivity.this.findViewById(R.id.tv_page_menu_online_count);
         if (tv != null)
         {
-            if( last_count_online < 10 )
+            if (last_count_online < 10)
             {
                 tv.setVisibility(View.GONE);
             }
@@ -1663,13 +1274,6 @@ public class MainActivity extends AppCompatActivity
 
     public void UiPageSearchShowHideWait(boolean show)
     {
-        /*LinearLayout fl = (LinearLayout) findViewById(R.id.ll_page_search_loading);
-
-        if (fl != null)
-        {
-            fl.setVisibility(show ? View.VISIBLE : View.GONE);
-        }*/
-
         FrameLayout fl = findViewById(R.id.fl_page_search_wait);
 
         if (show)
@@ -1684,9 +1288,6 @@ public class MainActivity extends AppCompatActivity
 
     private void ui_stop_timer_waiting_xod()
     {
-        //Log.i("TAG36", "ui_stop_timer_waiting_xod");
-        //Log.d("TAG36", android.util.Log.getStackTraceString(new Exception()));
-
         if (timer_xod != null)
         {
             timer_xod.running = false;
@@ -1702,13 +1303,8 @@ public class MainActivity extends AppCompatActivity
 
         tv.setText("");
 
-        //TextView tv_0 = (TextView) findViewById(R.id.tv_page_room_status_txt2);
-        //tv_0.setText("");
-
         ProgressBar pb = (ProgressBar) findViewById(R.id.pb_page_room_waiting);
         pb.setVisibility(View.GONE);
-
-        //Log.i("TAG36", "pb.setVisibility(View.GONE)");
     }
 
     private void ui_page_table_rating_draw_info_user(
@@ -1767,7 +1363,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         ll.setPadding(
-                  (int) (_scale_px * 1)
+                (int) (_scale_px * 1)
                 , (int) (_scale_px * 3)
                 , (int) (_scale_px * 1)
                 , (int) (_scale_px * 3)
@@ -1885,7 +1481,6 @@ public class MainActivity extends AppCompatActivity
                     , (int) (_scale_px * 10)
                     , (int) (_scale_px * 10)
             );
-            //tv_uname.setLayoutParams(lp_3);
 
             TR.addView(tv_uname);
 
@@ -1938,7 +1533,7 @@ public class MainActivity extends AppCompatActivity
 
             LinearLayout ll_item = new LinearLayout(MainActivity.this);
             ll_item.setOrientation(LinearLayout.HORIZONTAL);
-            //ll_item.setBackgroundColor(Color.GRAY);
+
             ll_item.setPadding((int) (10 * _scale_px), (int) (10 * _scale_px), (int) (10 * _scale_px), (int) (10 * _scale_px));
 
             LinearLayout.LayoutParams lp_iv_logo = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, (int) (50 * _scale_px));
@@ -1951,11 +1546,8 @@ public class MainActivity extends AppCompatActivity
             iv_logo.setAdjustViewBounds(true);
 
             if (_list.get(i).img == null)
-            //if (url != null && url.length() > 0)
             {
                 final int index = i;
-
-                //_friends.get(i).iv = iv_logo;
 
                 WaitThread wt = new WaitThread(0)
                 {
@@ -2030,20 +1622,7 @@ public class MainActivity extends AppCompatActivity
 
             ll2.addView(tv2);
 
-
             ll1.addView(ll2);
-
-            /*LinearLayout.LayoutParams lp_tv_raiting = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp_tv_raiting.gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
-            lp_tv_raiting.leftMargin = (int) ( 5 * _scale_px );
-
-            TextView tv_raiting = new TextView(MainActivity.this);
-            tv_raiting.setTextColor(Color.WHITE);
-            tv_raiting.setLayoutParams(lp_tv_raiting);
-            tv_raiting.setTextSize(16);
-            tv_raiting.setText("Рейтинг: " + String.valueOf(_list.get(i).raiting) );
-
-            ll1.addView(tv_raiting);*/
 
             ll_item.addView(ll1);
 
@@ -2211,18 +1790,14 @@ public class MainActivity extends AppCompatActivity
             LinearLayout.LayoutParams lp_iv_logo = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, (int) (50 * _scale_px));
 
             final ImageView iv_logo = new ImageView(MainActivity.this);
-            //final String url = _friends.get(i).picture;
 
             iv_logo.setLayoutParams(lp_iv_logo);
             iv_logo.setImageResource(R.drawable.default_avatar);
             iv_logo.setAdjustViewBounds(true);
 
             if (_friends.get(i).img == null)
-            //if (url != null && url.length() > 0)
             {
                 final int index = i;
-
-                //_friends.get(i).iv = iv_logo;
 
                 WaitThread wt = new WaitThread(0)
                 {
@@ -2553,22 +2128,6 @@ public class MainActivity extends AppCompatActivity
         fl.setVisibility(View.GONE);
     }
 
-    /*private void ui_update_controls()
-    {
-        if( _draw_task == null )
-        {
-            return;
-        }
-
-        ui_page_room_hide_all_btns();
-
-        if( _draw_task.getRoomInfo().current_pos_user_xod == _draw_task.getRoomInfo().current_my_position )
-        {
-
-        }
-        //else
-    }*/
-
     private void ui_draw_list_my_friends_create_game(List<FriendItem> _friends)
     {
         LinearLayout ll = (LinearLayout) findViewById(R.id.ll_page_create_new_game_friends_list);
@@ -2819,14 +2378,6 @@ public class MainActivity extends AppCompatActivity
 
         ll3.addView(tv_uname);
 
-                    /*TextView tv_uname2 = new TextView(MainActivity.this);
-                    tv_uname2.setTextSize( 16 );
-                    tv_uname2.setText(" " + uinfo.last_name);
-                    tv_uname2.setTextColor(Color.parseColor("#555555"));
-
-                    ll3.addView(tv_uname2);*/
-
-
         ll2.addView(ll3);
 
         LinearLayout ll4 = new LinearLayout(MainActivity.this);
@@ -2909,9 +2460,6 @@ public class MainActivity extends AppCompatActivity
                         , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
                         , QueueNetwork.TYPE_SEND__LONG);
 
-                        /*LinearLayout wait_icon = (LinearLayout) findViewById(R.id.ll_page_room_wait_add_friend);
-                        wait_icon.setVisibility(View.VISIBLE);*/
-
                 view.setVisibility(View.GONE);
             }
         });
@@ -2950,8 +2498,6 @@ public class MainActivity extends AppCompatActivity
 
                         if (pb != null)
                         {
-                            //Log.i("TAG36", "TimerXod: pb.setVisibility(View.VISIBLE);");
-
                             pb.setVisibility(View.VISIBLE);
                             pb.setMax(total_count);
                         }
@@ -2973,8 +2519,6 @@ public class MainActivity extends AppCompatActivity
                         {
                             pb.setProgress((int) diff);
                         }
-
-                        //Log.i("TAG36", "TimerXod: " + String.valueOf((int)diff) );
 
                         TextView tv = (TextView) findViewById(R.id.tv_page_room_waiting_time);
 
@@ -3088,88 +2632,9 @@ public class MainActivity extends AppCompatActivity
 
     private void show_page_connection_server()
     {
-        /*Log.d("TAG22", android.util.Log.getStackTraceString(new Exception()));
-
-        if(sv_page == SV_PAGE_CONNECTION_SERVER)
-        {
-            return;
-        }*/
-
         sv_page = SV_PAGE_CONNECTION_SERVER;
         removeAllOldFragmentsThisApp();
         setContentView(R.layout.page_connection_server);
-
-        /*FrameLayout fl = (FrameLayout) findViewById(R.id.fl_page_connection_server_root);
-        TextView txt1 = (TextView) findViewById(R.id.tv_page_connection_txt1);
-        TextView txt2 = (TextView) findViewById(R.id.tv_page_connection_txt2);
-
-        if( app_setting.getTypeSkin() == AppSettings.TYPE_SKIN_DAY )
-        {
-            fl.setBackgroundColor(Color.parseColor("#dedede"));
-            txt1.setTextColor(Color.BLACK);
-            txt2.setTextColor(Color.BLACK);
-        }
-        else
-        {
-            fl.setBackgroundColor(Color.parseColor("#353535"));
-            txt1.setTextColor(Color.WHITE);
-            txt2.setTextColor(Color.WHITE);
-        }*/
-
-           /*Thread th = new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    try
-                    {
-                        Thread.sleep(200);
-                    }
-                    catch (InterruptedException e)
-                    {
-                        e.printStackTrace();
-                    }
-
-                    runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            BackgroundAnimation1 b = new BackgroundAnimation1(MainActivity.this)
-                            {
-
-                            };
-
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-
-                            FrameLayout fl = (FrameLayout) findViewById(R.id.fl_page_connection_server_bk);
-
-                            if( fl != null )
-                            {
-                                fl.addView(b, params);
-                            }
-                        }
-                    });
-
-
-                }
-            });
-            th.start();*/
-
-
-        /*BackgroundAnimation1 b = new BackgroundAnimation1(MainActivity.this)
-        {
-
-        };
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-
-        FrameLayout fl = (FrameLayout) findViewById(R.id.fl_page_connection_server_bk);
-
-        if( fl != null )
-        {
-            fl.addView(b, params);
-        }*/
 
         ViewGroup root = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
         setFont(root, this._fontApp_bold);
@@ -3177,8 +2642,6 @@ public class MainActivity extends AppCompatActivity
         TextView tv = findViewById(R.id.tv_page_connection_server_version_name);
 
         tv.setText(getString(R.string.txt_75) + " " + BuildConfig.VERSION_NAME);
-
-        //authGoogle();
     }
 
     private void show_page_create_new_game()
@@ -3192,7 +2655,6 @@ public class MainActivity extends AppCompatActivity
 
         SeekBar sb = (SeekBar) findViewById(R.id.sb_page_create_new_game);
         TextView tv = (TextView) findViewById(R.id.tv_page_create_new_game_rate);
-        //TextView tv2 = (TextView) findViewById(R.id.tv_page_create_new_game_users_count);
 
         if (accout_info.balans < 5)
         {
@@ -3352,50 +2814,6 @@ public class MainActivity extends AppCompatActivity
         });
 
         ui_draw_list_my_friends_create_game(friend_list);
-
-
-        /*LinearLayout mSeekLin = (LinearLayout) findViewById(R.id.ll_page_create_new_game_seekbar1);
-        final CustomSeekBar customSeekBar = new CustomSeekBar(new ContextThemeWrapper(this, R.style.SeekBarColor), 5, Color.RED, 2);
-        customSeekBar.addSeekBar(mSeekLin);
-
-        customSeekBar.getSeekBar().setProgress(3);
-        ((TextView) customSeekBar.list_tv.get(3)).setTextColor(Color.parseColor("#00ff00"));
-
-        num = 2 + customSeekBar.getSeekBar().getProgress();
-        tv2.setText(String.valueOf(num));
-
-        //customSeekBar.getSeekBar().setProgressDrawable( getResources().getDrawable(R.drawable.tprogress_drawable) );
-        customSeekBar.getSeekBar().setThumb(getResources().getDrawable(R.drawable.thumb_image));
-
-        customSeekBar.getSeekBar().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-        {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
-                TextView tv = (TextView) findViewById(R.id.tv_page_create_new_game_users_count);
-
-                int num = 2 + progress;
-
-                tv.setText(String.valueOf(num) /*+ " " + Utils.getCorrectSuffix(num, "монета", "монеты", "монет") *//*);
-
-                for (int i = 0; i < customSeekBar.list_tv.size(); i++)
-                {
-                    ((TextView) customSeekBar.list_tv.get(i)).setTextColor(Color.RED);
-                }
-
-                ((TextView) customSeekBar.list_tv.get(progress)).setTextColor(Color.parseColor("#00ff00"));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {
-            }
-        });*/
 
         final LinearLayout t1 = (LinearLayout) findViewById(R.id.ll_page_create_new_game_type_game_1);
         final LinearLayout t2 = (LinearLayout) findViewById(R.id.ll_page_create_new_game_type_game_2);
@@ -3601,9 +3019,6 @@ public class MainActivity extends AppCompatActivity
                 txt_error.setVisibility(View.GONE);
 
                 SeekBar sb = (SeekBar) findViewById(R.id.sb_page_create_new_game);
-
-                //LinearLayout mSeekLin = (LinearLayout) findViewById(R.id.ll_page_create_new_game_seekbar1);
-                //SeekBar customSeekBar = (SeekBar) mSeekLin.getChildAt(0);
 
                 RadioGroup rg = (RadioGroup) findViewById(R.id.rg_page_create_new_game_count_cards);
                 int checked_rb_id = rg.getCheckedRadioButtonId();
@@ -3834,13 +3249,6 @@ public class MainActivity extends AppCompatActivity
         TextView tv = findViewById(R.id.tv_page_rulet_title);
         tv.setTypeface(_fontApp_bold2);
 
-        /*TextView tv0 = findViewById(R.id.tv_page_rulet_result_v);
-
-        if( tv0 != null )
-        {
-            tv0.setText("--");
-        }*/
-
         FrameLayout fl = (FrameLayout) findViewById(R.id.fl_page_rulet_canvas);
         fl.removeAllViews();
 
@@ -3883,7 +3291,7 @@ public class MainActivity extends AppCompatActivity
                     public void run()
                     {
                         FrameLayout fl = MainActivity.this.findViewById(R.id.fl_page_rulet_bk_main);
-                        if( fl != null )
+                        if (fl != null)
                         {
                             fl.setBackgroundColor(Color.parseColor("#cd0a00"));
                         }
@@ -3912,7 +3320,7 @@ public class MainActivity extends AppCompatActivity
                     view.setVisibility(View.GONE);
 
                     FrameLayout fl = findViewById(R.id.fl_page_rulet_bk_main);
-                    if( fl != null )
+                    if (fl != null)
                     {
                         fl.setBackgroundResource(R.drawable.tile_background);
                     }
@@ -4017,8 +3425,6 @@ public class MainActivity extends AppCompatActivity
         ViewGroup root = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
         setFont(root, this._fontApp_bold);
 
-        //click_sound = MediaPlayer.create(this, R.raw.click);
-
         TextView tv = (TextView) findViewById(R.id.tv_page_auth_footer_text);
         tv.setText(Html.fromHtml(getString(R.string.txt_80)));
         tv.setOnClickListener(new View.OnClickListener()
@@ -4036,11 +3442,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                /*if(click_sound != null)
-                {
-                    click_sound.start();
-                }*/
-
                 signIn();
             }
         });
@@ -4167,17 +3568,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        /*int typeSkin = app_setting.getTypeSkin();
-
-        if( typeSkin == AppSettings.TYPE_SKIN_DAY )
-        {
-            rb_day.setChecked(true);
-        }
-        else
-        {
-            rb_night.setChecked(true);
-        }*/
-
         int typeSortCard = app_setting.opt_sort_my_cards;
 
         if (typeSortCard == AppSettings.SORT_MY_CARDS_OFF)
@@ -4213,92 +3603,6 @@ public class MainActivity extends AppCompatActivity
             RadioButton rb = (RadioButton) findViewById(R.id.page_settings_sort_trump_cards_off);
             rb.setChecked(true);
         }
-
-        /*LinearLayout ll_page_settings_backcard_type_1 = findViewById(R.id.ll_page_settings_backcard_type_1);
-        LinearLayout ll_page_settings_backcard_type_2 = findViewById(R.id.ll_page_settings_backcard_type_2);
-        LinearLayout ll_page_settings_backcard_type_3 = findViewById(R.id.ll_page_settings_backcard_type_3);
-        LinearLayout ll_page_settings_backcard_type_4 = findViewById(R.id.ll_page_settings_backcard_type_4);
-        LinearLayout ll_page_settings_backcard_type_5 = findViewById(R.id.ll_page_settings_backcard_type_5);
-
-        ll_page_settings_backcard_type_1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ui_settongs_set_backcardtype(1);
-            }
-        });
-
-        ll_page_settings_backcard_type_2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ui_settongs_set_backcardtype(2);
-            }
-        });
-
-        ll_page_settings_backcard_type_3.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ui_settongs_set_backcardtype(3);
-            }
-        });
-
-        ll_page_settings_backcard_type_4.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ui_settongs_set_backcardtype(4);
-            }
-        });
-
-        ll_page_settings_backcard_type_5.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ui_settongs_set_backcardtype(5);
-            }
-        });
-
-        ui_settongs_set_backcardtype(app_setting.type_backcard);
-
-        LinearLayout ll_page_settings_cardtype_type_1 = findViewById(R.id.ll_page_settings_cardtype_type_1);
-        LinearLayout ll_page_settings_cardtype_type_2 = findViewById(R.id.ll_page_settings_cardtype_type_2);
-        LinearLayout ll_page_settings_cardtype_type_3 = findViewById(R.id.ll_page_settings_cardtype_type_3);
-
-        ll_page_settings_cardtype_type_1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ui_settongs_set_cardtype(1);
-            }
-        });
-
-        ll_page_settings_cardtype_type_2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ui_settongs_set_cardtype(2);
-            }
-        });
-
-        ll_page_settings_cardtype_type_3.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ui_settongs_set_cardtype(3);
-            }
-        });
-
-        ui_settongs_set_cardtype(app_setting.type_cardsstyle);*/
     }
 
     private void show_page_search()
@@ -4530,166 +3834,6 @@ public class MainActivity extends AppCompatActivity
                     onRewardedVideoAd = false;
                     mRewardedVideoAd.show();
                 }
-
-                /*if(UnityAds.isReady("rewardedVideo")){ //Make sure a video is available & the placement is valid.
-                    UnityAds.show(MainActivity.this, "rewardedVideo");
-                }*/
-
-                /*if (Vungle.canPlayAd("DEFAULT-3981593"))
-                {
-                    Vungle.playAd("DEFAULT-3981593", null, new PlayAdCallback() {
-                        @Override
-                        public void onAdStart(String placementReferenceId)
-                        {
-                            Toast.makeText(MainActivity.this, "onAdStart", Toast.LENGTH_LONG).show();
-                        }
-
-                        @Override
-                        public void onAdEnd(String placementReferenceId, boolean completed, boolean isCTAClicked)
-                        {
-                            Toast.makeText(MainActivity.this, "onAdEnd", Toast.LENGTH_LONG).show();
-
-                            ArrayList<String> params = new ArrayList<String>();
-
-                            params.add(String.valueOf(accout_info.uid));
-                            params.add(String.valueOf(session_info.session_socket_id));
-                            params.add(String.valueOf(10 + 100 + 90));
-
-                            network.queue_network.add(JniApi.k1()
-                                    , params
-                                    , null
-                                    , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                                    , QueueNetwork.TYPE_SEND__LONG);
-
-                            WaitThread wt = new WaitThread(800)
-                            {
-                                @Override
-                                public void callback()
-                                {
-                                    getMyBalans();
-                                }
-                            };
-                            wt.start();
-
-                            if( ! showed_salute )
-                            {
-                                showed_salute = true;
-                                runAnimationAfterVideoAd();
-                            }
-                            else
-                            {
-                                if (app_setting.opt_sound_in_game && cachbox != null) {
-                                    cachbox.start();
-                                }
-                            }
-                        }
-
-
-                        @Override
-                        public void onError(String placementReferenceId, Throwable throwable) {
-                            // Play ad error occurred - throwable.getLocalizedMessage() contains error message
-
-                            Toast.makeText(MainActivity.this, "onError", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                };*/
-
-                /**
-                 * Load rewarded by specifying AdMode.REWARDED
-                 * We are using AdEventListener to trigger ad show
-                 */
-                /*startAppAd.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
-
-                    @Override
-                    public void onReceiveAd(Ad arg0)
-                    {
-                        startAppAd.showAd();
-                    }
-
-                    @Override
-                    public void onFailedToReceiveAd(Ad arg0) {
-
-                         // Failed to load rewarded video:
-                         // 1. Check that FullScreenActivity is declared in AndroidManifest.xml:
-                         // See https://github.com/StartApp-SDK/Documentation/wiki/Android-InApp-Documentation#activities
-                         // 2. Is android API level above 16?
-                         //
-                        Log.e("MainActivity", "Failed to load rewarded video with reason: " + arg0.getErrorMessage());
-                    }
-                });*/
-
-                //final StartAppAd rewardedVideo = new StartAppAd(MainActivity.this);
-
-                /**
-                 * This is very important: set the video listener to be triggered after video
-                 * has finished playing completely
-                 */
-                /*rewardedVideo.setVideoListener(new VideoListener()
-                {
-
-                    @Override
-                    public void onVideoCompleted()
-                    {
-                        //Toast.makeText(MainActivity.this, "Rewarded video has completed - grant the user his reward", Toast.LENGTH_LONG).show();
-
-                        ArrayList<String> params = new ArrayList<String>();
-
-                        params.add(String.valueOf(accout_info.uid));
-                        params.add(String.valueOf(session_info.session_socket_id));
-                        params.add(String.valueOf(10 + 100 + 90));
-
-                        network.queue_network.add(JniApi.k1()
-                                , params
-                                , null
-                                , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                                , QueueNetwork.TYPE_SEND__LONG);
-
-                        WaitThread wt = new WaitThread(800)
-                        {
-                            @Override
-                            public void callback()
-                            {
-                                getMyBalans();
-                            }
-                        };
-                        wt.start();
-
-                        if (!showed_salute)
-                        {
-                            showed_salute = true;
-                            runAnimationAfterVideoAd();
-                        }
-                        else if (app_setting.opt_sound_in_game && cachbox != null && ! call_phone)
-                        {
-                            cachbox.start();
-                        }
-                    }
-                });*/
-
-                /**
-                 * Load rewarded by specifying AdMode.REWARDED
-                 * We are using AdEventListener to trigger ad show
-                 */
-                /*rewardedVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener()
-                {
-                    @Override
-                    public void onReceiveAd(Ad arg0)
-                    {
-                        rewardedVideo.showAd();
-                    }
-
-                    @Override
-                    public void onFailedToReceiveAd(Ad arg0)
-                    {
-                        /**
-                         * Failed to load rewarded video:
-                         * 1. Check that FullScreenActivity is declared in AndroidManifest.xml:
-                         * See https://github.com/StartApp-SDK/Documentation/wiki/Android-InApp-Documentation#activities
-                         * 2. Is android API level above 16?
-                         *//*
-                        //Log.e("MainActivity", "Failed to load rewarded video with reason: " + arg0.getErrorMessage());
-                    }
-                });*/
             }
         });
 
@@ -4700,8 +3844,6 @@ public class MainActivity extends AppCompatActivity
         sv_page = SV_PAGE_RULES;
         removeAllOldFragmentsThisApp();
         setContentView(R.layout.page_rules);
-
-
 
 
         ViewGroup root = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
@@ -4761,45 +3903,6 @@ public class MainActivity extends AppCompatActivity
 
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 
-        /*Button b1 = (Button) findViewById(R.id.button2);
-        b1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                //animation_fly_card_off_board = false
-
-                if( _draw_task == null ) { return; }
-
-                List<CardDrawInfo> l = new ArrayList<>();
-                CardDrawInfo cdi = _draw_task.list_cards_draw.get(Cards.BLANK);
-
-                for (int g = 0; g < _draw_task.getRoomInfo().cards_boards.size(); g++)
-                {
-                    if ( ! _draw_task.getRoomInfo().cards_boards.get(g).need_draw1)
-                    {
-                        continue;
-                    }
-
-                    if( _draw_task.getRoomInfo().cards_boards.get(g).c1 != null )
-                    {
-                        _draw_task.getRoomInfo().cards_boards.get(g).c1.img = cdi.img;
-                        l.add( _draw_task.getRoomInfo().cards_boards.get(g).c1 );
-                    }
-
-                    if( _draw_task.getRoomInfo().cards_boards.get(g).c2 != null )
-                    {
-                        _draw_task.getRoomInfo().cards_boards.get(g).c2.img = cdi.img;
-                        l.add( _draw_task.getRoomInfo().cards_boards.get(g).c2 );
-                    }
-                }
-
-                _draw_task.fly_card_off_board = new AnimationFlyCardsOutOfBoard(20, 0, 0, l);
-
-                _draw_task.animation_fly_card_off_board = true;
-            }
-        });*/
-
         FrameLayout fl0 = (FrameLayout) findViewById(R.id.fl_page_room_user_info_close);
 
         if (fl0 != null)
@@ -4830,38 +3933,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         LinearLayout btn_add_friends = (LinearLayout) findViewById(R.id.btn_page_room_add_friend);
-        /*btn_add_friends.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                if (room_page_oppened_user_info == 0)
-                {
-                    return;
-                }
-
-                ArrayList<String> params = new ArrayList<String>();
-
-                params.add(String.valueOf(accout_info.uid));
-                params.add(String.valueOf(session_info.session_socket_id));
-                params.add(String.valueOf(room_page_oppened_user_info));
-
-                network.queue_network.add(getString(R.string.cmd_10)
-                        , params
-                        , null
-                        , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                        , QueueNetwork.TYPE_SEND__LONG);
-
-                LinearLayout wait_icon = (LinearLayout) findViewById(R.id.ll_page_room_wait_add_friend);
-                wait_icon.setVisibility(View.VISIBLE);
-
-                view.setVisibility(View.GONE);
-
-            }
-        });*/
-
-        //ImageView wait_icon = (ImageView) findViewById(R.id.iv_page_room_wait_add_friends);
-        //wait_icon.setVisibility(View.VISIBLE);
 
         System.gc();
 
@@ -5075,40 +4146,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void callbackEndAnimationFlyCardsFromUserToBoard()
             {
-                /*runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        if( action_end_animation_fly == ACTION_END_ANIMATION_FLY_SHOW_BTN_BITO )
-                        {
-                            Button btn_bery = (Button) findViewById(R.id.btn_page_room_bito);
-
-                            if( btn_bery == null ) { return; }
-
-                            btn_bery.setVisibility(View.VISIBLE);
-                        }
-                        else if( action_end_animation_fly == ACTION_END_ANIMATION_FLY_SHOW_BTN_BERY )
-                        {
-                            Button btn_bery = (Button) findViewById(R.id.btn_page_room_bery);
-
-                            if( btn_bery == null ) { return; }
-
-                            btn_bery.setVisibility(View.VISIBLE);
-                        }
-                        else if( action_end_animation_fly == ACTION_END_ANIMATION_FLY_SHOW_BTN_THAT_ALL )
-                        {
-                            ui_show_btn_only__that_s_all();
-                        }
-                        //
-
-
-                    }
-                });
-
-                action_end_animation_fly = ACTION_END_ANIMATION_FLY_NONE;*/
-
-                if( _draw_task == null )
+                if (_draw_task == null)
                 {
                     return;
                 }
@@ -5130,15 +4168,10 @@ public class MainActivity extends AppCompatActivity
             {
                 if (_draw_task != null)
                 {
-                    //_draw_task.resetAnimationOffsetCardBoards();
                     _draw_task.resetAnimationOffsetMyCard();
 
-                    //if (_draw_task.last_cmd_server.equals("RUN_BITO"))
-                    {
-                        _draw_task.draw_off_game_cards = true;
-                        _draw_task.needRebuildBackground = true;
-                        //_draw_task.getRoomInfo().my_userinfo.cached_draw_my_cards = false;
-                    }
+                    _draw_task.draw_off_game_cards = true;
+                    _draw_task.needRebuildBackground = true;
                 }
             }
 
@@ -5152,7 +4185,7 @@ public class MainActivity extends AppCompatActivity
                     {
                         FrameLayout fl = (FrameLayout) MainActivity.this.findViewById(R.id.fl_page_room_canvas);
 
-                        if( fl != null )
+                        if (fl != null)
                         {
                             fl.setBackground(new BitmapDrawable(getResources(), img));
                         }
@@ -5186,13 +4219,6 @@ public class MainActivity extends AppCompatActivity
         SurfaceHolder sfhTrack = _draw_task.getHolder();
         sfhTrack.setFormat(PixelFormat.TRANSPARENT);
 
-        /*FrameLayout _fl = (FrameLayout) findViewById(R.id.fl_page_room_user_info);
-
-        if (_fl == null)
-        {
-            _fl.bringToFront();
-        }*/
-
         fl.addView(_draw_task, lp);
 
         FrameLayout.LayoutParams fl_ll_br = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -5212,13 +4238,6 @@ public class MainActivity extends AppCompatActivity
         btn_ready_play_game.setBackgroundResource(R.drawable.style_btn1);
         btn_ready_play_game.setLayoutParams(fl_ch);
         btn_ready_play_game.setTypeface(_fontApp_bold);
-
-                /*btn_ready_play_game.setMargin(
-                           (int) ( 6 * _scale_px)
-                        ,  (int) ( 6 * _scale_px)
-                        ,  (int) ( 10 * _scale_px)
-                        ,  (int) ( 6 * _scale_px)
-                );*/
 
         btn_ready_play_game.setText(getString(R.string.txt_81));
         btn_ready_play_game.setTextSize(22);
@@ -5241,61 +4260,13 @@ public class MainActivity extends AppCompatActivity
                         , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
                         , QueueNetwork.TYPE_SEND__FORCE);
             }
-        });/*
-                btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b)
-                    {
-                        if(network != null)
-                        {
-                            if (b)
-                            {
-                                timer_ready.running = false;
-                                pb_wait_readyPlay.setVisibility(View.GONE);
-                                ch_ready_play.setVisibility(View.GONE);
-
-                                network.queue_network.add(getString(R.string.cmd_11)
-                                        , null
-                                        , null
-                                        , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                                        , QueueNetwork.TYPE_SEND__FORCE);
-                            }
-                            else
-                            {
-                                /*pb_wait_readyPlay.setVisibility(View.VISIBLE);
-                                ch_ready_play.setVisibility(View.VISIBLE);
-                                pb_wait_readyPlay.setMax(100);
-                                pb_wait_readyPlay.setProgress(100);
-
-                                timer_ready = new TimerReady(pb_wait_readyPlay, 10);
-                                timer_ready.start();*//*
-
-                                network.queue_network.add("NOT_READY_PLAY"
-                                        , null
-                                        , null
-                                        , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                                        , QueueNetwork.TYPE_SEND__FORCE);
-                            }
-                        }
-                    }
-                });*/
-
-        //btn_ready_play_game = btn;
+        });
 
         ll_br.addView(btn_ready_play_game);
 
         fl.addView(ll_br);
 
         pb_wait_readyPlay = (ProgressBar) findViewById(R.id.pb_page_room_waiting_ready_play);
-        /*pb_wait_readyPlay.setVisibility(View.VISIBLE);
-        pb_wait_readyPlay.setMax(100);
-        pb_wait_readyPlay.setProgress(100);
-
-        timer_ready = new TimerReady(pb_wait_readyPlay, 10);
-        timer_ready.start();*/
-
-        //my_avatar_icon = (MyAvatarIcon) findViewById(R.id.imageView27);
 
         ViewGroup root = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
         setFont(root, this._fontApp_bold);
@@ -5322,13 +4293,6 @@ public class MainActivity extends AppCompatActivity
                 {
                     tv_0.setText("");
                 }
-                /*network.queue_network.add(getString(R.string.cmd_15)
-                        , null
-                        , null
-                        , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                        , QueueNetwork.TYPE_SEND__FORCE);*/
-
-                //
             }
         });
 
@@ -5355,11 +4319,6 @@ public class MainActivity extends AppCompatActivity
                     tv_0.setTextColor(Color.WHITE);
                     tv_0.setText(getString(R.string.txt_49));
                 }
-                /*network.queue_network.add(getString(R.string.cmd_16)
-                        , null
-                        , null
-                        , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                        , QueueNetwork.TYPE_SEND__FORCE);*/
             }
         });
 
@@ -5385,11 +4344,6 @@ public class MainActivity extends AppCompatActivity
                 {
                     tv_0.setText("");
                 }
-                /*network.queue_network.add(getString(R.string.cmd_17)
-                        , null
-                        , null
-                        , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                        , QueueNetwork.TYPE_SEND__FORCE);*/
             }
         });
 
@@ -5415,11 +4369,6 @@ public class MainActivity extends AppCompatActivity
                 {
                     tv_0.setText("");
                 }
-                /*network.queue_network.add(getString(R.string.cmd_13)
-                        , null
-                        , null
-                        , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                        , QueueNetwork.TYPE_SEND__FORCE);*/
             }
         });
 
@@ -5448,15 +4397,6 @@ public class MainActivity extends AppCompatActivity
                         tv_0.setTextColor(Color.WHITE);
                         tv_0.setText(getString(R.string.txt_49));
                     }
-                    /*network.queue_network.add(getString(R.string.cmd_12)
-                            , null
-                            , null
-                            , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                            , QueueNetwork.TYPE_SEND__FORCE);*/
-
-                    //ui_page_room_hide_all_btns();
-
-                    //ui_stop_timer_waiting_xod();
                 }
             }
         });
@@ -5485,15 +4425,6 @@ public class MainActivity extends AppCompatActivity
                     {
                         tv_0.setText("");
                     }
-                    /*network.queue_network.add(getString(R.string.cmd_14)
-                            , null
-                            , null
-                            , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                            , QueueNetwork.TYPE_SEND__FORCE);*/
-
-                    //ui_page_room_hide_all_btns();
-
-                    //ui_stop_timer_waiting_xod();
                 }
             }
         });
@@ -5584,19 +4515,13 @@ public class MainActivity extends AppCompatActivity
             table_icons.addView(tr1);
         }
 
-        /*MyAvatarIcon ma = findViewById(R.id.ma_page_room_myavatar);
-        if(ma != null)
-        {
-            ma.setImg( cache_personal_photo );
-        }*/
-
         ImageView iv2 = findViewById(R.id.iv_page_room_bkchange);
         iv2.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if( _draw_task != null)
+                if (_draw_task != null)
                 {
                     synchronized (_draw_task.lockWorkThreadAnimation)
                     {
@@ -5607,38 +4532,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-
-    /*private void ui_settongs_set_cardtype(int t)
-    {
-        RadioButton rb1 = findViewById(R.id.rb_page_settings_cardtype_type_1);
-        RadioButton rb2 = findViewById(R.id.rb_page_settings_cardtype_type_2);
-        RadioButton rb3 = findViewById(R.id.rb_page_settings_cardtype_type_3);
-
-        rb1.setChecked(t == 1);
-        rb2.setChecked(t == 2);
-        rb3.setChecked(t == 3);
-
-        app_setting.type_cardsstyle = t;
-        app_setting.db.setKeyValue("mgz_type_cardsstyle", String.valueOf(t));
-    }
-
-    private void ui_settongs_set_backcardtype(int t)
-    {
-        RadioButton rb1 = findViewById(R.id.rb_page_settings_backcard_type_1);
-        RadioButton rb2 = findViewById(R.id.rb_page_settings_backcard_type_2);
-        RadioButton rb3 = findViewById(R.id.rb_page_settings_backcard_type_3);
-        RadioButton rb4 = findViewById(R.id.rb_page_settings_backcard_type_4);
-        RadioButton rb5 = findViewById(R.id.rb_page_settings_backcard_type_5);
-
-        rb1.setChecked(t == 1);
-        rb2.setChecked(t == 2);
-        rb3.setChecked(t == 3);
-        rb4.setChecked(t == 4);
-        rb5.setChecked(t == 5);
-
-        app_setting.type_backcard = t;
-        app_setting.db.setKeyValue("mgz_type_backcard", String.valueOf(t));
-    }*/
 
     private void show_alert_update_app()
     {
@@ -5697,38 +4590,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
 
-                    /*WaitThread wt = new WaitThread(200) {
-                        @Override
-                        public void callback() {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    TextView tv = MainActivity.this.findViewById(R.id.tv_page_add_balans_money);
-
-                                    if (tv != null) {
-                                        tv.setTextColor(Color.GREEN);
-                                    }
-
-                                    try {
-                                        Thread.sleep(5500);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    tv = MainActivity.this.findViewById(R.id.tv_page_add_balans_money);
-
-                                    if (tv != null) {
-                                        tv.setTextColor(Color.WHITE);
-                                    }
-                                }
-                            });
-
-                        }
-                    };
-
-                    wt.start();*/
-
-                    if (app_setting.opt_sound_in_game && cachbox != null && ! call_phone)
+                    if (app_setting.opt_sound_in_game && cachbox != null && !call_phone)
                     {
                         cachbox.start();
                     }
@@ -6061,33 +4923,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    /*private void ui_show_btn_only__that_s_all()
-    {
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                Button btn = null;
-
-                btn = (Button) findViewById(R.id.btn_page_room_bito);
-
-                if( btn == null )
-                {
-                    return;
-                }
-
-                btn.setVisibility(View.GONE);
-
-                btn = (Button) findViewById(R.id.btn_page_room_bery);
-                btn.setVisibility(View.GONE);
-
-                btn = (Button) findViewById(R.id.btn_page_room_that_s_all);
-                btn.setVisibility(View.VISIBLE);
-            }
-        });
-    }*/
-
     private void page_room_sendCmd(int t)
     {
         if (t == TYPE_BTN_BITO)
@@ -6165,29 +5000,6 @@ public class MainActivity extends AppCompatActivity
         if (btn != null && t == TYPE_BTN_THATS_ALL_2) btn.setVisibility(View.VISIBLE);
     }
 
-    /*private void ui_page_room_enable_all_btns(boolean v)
-    {
-        Button btn = null;
-
-        btn = (Button) findViewById(R.id.btn_page_room_bito);
-        if (btn != null) btn.setEnabled(v);
-
-        btn = (Button) findViewById(R.id.btn_page_room_bery);
-        if (btn != null) btn.setEnabled(v);
-
-        btn = (Button) findViewById(R.id.btn_page_room_that_s_all);
-        if (btn != null) btn.setEnabled(v);
-
-        btn = (Button) findViewById(R.id.btn_page_room_bito_2);
-        if (btn != null) btn.setEnabled(v);
-
-        btn = (Button) findViewById(R.id.btn_page_room_bery_2);
-        if (btn != null) btn.setEnabled(v);
-
-        btn = (Button) findViewById(R.id.btn_page_room_that_s_all_2);
-        if (btn != null) btn.setEnabled(v);
-    }*/
-
     private void ui_page_room_hide_all_btns()
     {
         Button btn = null;
@@ -6223,11 +5035,6 @@ public class MainActivity extends AppCompatActivity
         {
             return;
         }
-
-        /*_draw_task.setZOrderOnTop(false);
-        _draw_task.setZOrderMediaOverlay(true);*/
-        //_draw_task.drawBkImg = true;
-        //_draw_task.setVisibility(View.GONE);
 
         room_page_oppened_user_info = uid;
 
@@ -6313,8 +5120,6 @@ public class MainActivity extends AppCompatActivity
 
     private void close_app()
     {
-        //Log.i("TAG", "close_app");
-
         if (network != null)
         {
             network.OnDestroy();
@@ -6325,16 +5130,6 @@ public class MainActivity extends AppCompatActivity
 
         android.os.Process.killProcess(android.os.Process.myPid());
     }
-
-    /*private void setStatusTextPageRoom(String text)
-    {
-        TextView tv = (TextView) findViewById(R.id.tv_page_room_status_txt);
-
-        if (tv != null)
-        {
-            tv.setText(text);
-        }
-    }*/
 
     public AppSettings getAppSettings()
     {
@@ -6485,7 +5280,7 @@ public class MainActivity extends AppCompatActivity
                             || sv_page == SV_PAGE_ADD_BALANS
                             || sv_page == SV_PAGE_TABLE_RATING
                             || sv_page == SV_PAGE_SHOP
-                    )
+            )
             {
                 show_page_menu();
                 return false;
@@ -6597,14 +5392,6 @@ public class MainActivity extends AppCompatActivity
                     public void run()
                     {
                         show_page_connection_server();
-                        //show_page_add_money();
-
-                        /*TextView tv = (TextView) findViewById(R.id.textView_version);
-
-                        if(tv != null)
-                        {
-                            tv.setText("v" + VERSION_APP+" beta");
-                        }*/
                     }
                 });
             }
@@ -6617,8 +5404,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void callback_open_connection2(int index_c, String v)
             {
-                //Log.i("TAG", "_callback_open_connection2: " + String.valueOf(index_c) + " " + v);
-
                 if (index_c == 1)
                 {
                     if (network != null && network.queue_network != null)
@@ -6626,17 +5411,9 @@ public class MainActivity extends AppCompatActivity
                         network.clearBuffersInOut();
                         network.queue_network.clearAllQueue();
                     }
-                    /*else
-                    {
-                        //Log.i("TAG", "callback_open_connection2 error 1");
-                    }*/
 
                     if (network != null && network.queue_network != null)
                     {
-                        //Log.i("TAG", "network.queue_network.add  FIRST_CMD ");
-
-                        //8083network.queue_network.clearAllQueue();
-
                         session_info = new SessionInfo();
 
                         network.queue_network.add("FIRST_CMD"
@@ -6645,16 +5422,8 @@ public class MainActivity extends AppCompatActivity
                                 , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
                                 , QueueNetwork.TYPE_SEND__FORCE);
                     }
-                    /*else
-                    {
-                        //Log.i("TAG", "callback_open_connection2 error 2");
-                    }*/
 
                 }
-                /*else
-                {
-                    //Log.i("TAG", "index_c == 1 error");
-                }*/
             }
 
             @Override
@@ -6680,18 +5449,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void callback_on_send_echo()
             {
-                //Log.i("TAG", "callback_on_send_echo");
+                network.queue_network.add("ECHO"
+                        , null
+                        , null
+                        , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
+                        , QueueNetwork.TYPE_SEND__FORCE);
 
-                //if(_current_user_id > 0 )
-                {
-                    //ArrayList<String> params = new ArrayList<String>();
-
-                    network.queue_network.add("ECHO"
-                            , null
-                            , null
-                            , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                            , QueueNetwork.TYPE_SEND__FORCE);
-                }
             }
         };
     }
@@ -6700,11 +5463,6 @@ public class MainActivity extends AppCompatActivity
     {
         for (Fragment fragment : getSupportFragmentManager().getFragments())
         {
-            /*if (fragment instanceof StatisticTop && fragment != null)
-            {
-                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-            }
-            else*/
             if (fragment instanceof SearchRooms && fragment != null)
             {
                 getSupportFragmentManager().beginTransaction().remove(fragment).commit();
@@ -6755,9 +5513,6 @@ public class MainActivity extends AppCompatActivity
 
             return;
         }
-
-        //Log.i("TAG", "cmd: " + r.cmd);
-
         //----------------------------------------------------------
         String cmd = "OK_SEND";
 
@@ -6783,27 +5538,16 @@ public class MainActivity extends AppCompatActivity
 
                 session_info.session_socket_id = ProtokolUtils.fromByteArray(byff);
 
-                //session_info.aes_key = new byte[16];
                 session_info.xor_key = new byte[16];
 
                 session_info.type_key = 1;
-                //System.arraycopy(r.data, offset, session_info.aes_key, 0, 16);
-                //offset += 16;
+
                 System.arraycopy(r.data, offset, session_info.xor_key, 0, 16);
                 offset += 16;
 
                 network.setSessionInfo(session_info);
 
-                /*runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        show_page_menu();
-                    }
-                });*/
-
-                if( db.getKeyValue(getString(R.string.cmd_1), "0").equals("0") )
+                if (db.getKeyValue(getString(R.string.cmd_1), "0").equals("0"))
                 {
                     ArrayList<String> params = new ArrayList<String>();
 
@@ -6827,16 +5571,16 @@ public class MainActivity extends AppCompatActivity
                     accout_info.lastName = db.getKeyValue("accout_info.lastName", "");
                     accout_info.personPhoto = db.getKeyValue("accout_info.personPhoto", "");
 
-                    if( accout_info.personId == null )
+                    if (accout_info.personId == null)
                     {
                         close_app();
                     }
 
                     ArrayList<String> params = new ArrayList<String>();
 
-                    params.add( accout_info.personId );
+                    params.add(accout_info.personId);
                     params.add(String.valueOf(session_info.session_socket_id));
-                    params.add( token );
+                    params.add(token);
 
                     network.queue_network.add(getString(R.string.cmd_2)
                             , params
@@ -6845,45 +5589,6 @@ public class MainActivity extends AppCompatActivity
                             , QueueNetwork.TYPE_SEND__LONG);
                 }
             }
-
-            /*int _socket_server = Integer.parseInt(new String(r.params.get(0)));
-            String _xcode_session = (new String(r.params.get(1)));
-
-            socket_s = _socket_server;
-            xcode_session = _xcode_session;
-
-
-            if (_current_user_id == 0) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //show_page_input_or_reg();
-                        show_page_auth();
-                    }
-                });
-            } else {
-                send_command_init_session();
-
-                List<DB.StructContactInfo_FromLoadServer> list_users = db._db_u2u_get_all_from_send_server();
-
-                ArrayList<String> params = new ArrayList<String>();
-
-                String list_contacts = "";
-
-                for (int i = 0; i < list_users.size(); i++) {
-                    if (list_users.get(i).status == 3) {
-                        list_contacts += String.valueOf(list_users.get(i).user_id) + "|";
-                    }
-                }
-
-                params.add(list_contacts);
-
-                network.queue_network.add("ECHO"
-                        , params
-                        , null
-                        , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                        , QueueNetwork.TYPE_SEND__FORCE);
-            }*/
         }
         else if (r.cmd.equalsIgnoreCase("ECHO"))
         {
@@ -6917,7 +5622,7 @@ public class MainActivity extends AppCompatActivity
             {
                 getMyBalans();
 
-                if (app_setting.opt_sound_in_game && cachbox != null && ! call_phone)
+                if (app_setting.opt_sound_in_game && cachbox != null && !call_phone)
                 {
                     cachbox.start();
                 }
@@ -7067,7 +5772,6 @@ public class MainActivity extends AppCompatActivity
 
                 uinfo.exists_in_friends = true;
 
-
                 load_my_friends();
             }
         }
@@ -7146,7 +5850,6 @@ public class MainActivity extends AppCompatActivity
 
                             if (_draw_task.room_id != room_id)
                             {
-                                //Log.i("TAG54", "ERROR ROOM ID");
                                 return;
                             }
 
@@ -7188,12 +5891,6 @@ public class MainActivity extends AppCompatActivity
                                         ri.exists_in_friends = false;
                                         ri.loaded_user_photo_from_url = false;
                                         ri.user_photo = _draw_task.getDefaultAvatar().copy(_draw_task.getDefaultAvatar().getConfig(), true);
-
-                                        /*ri.user_photo = Bitmap.createScaledBitmap(
-                                                  _draw_task.getDefaultAvatar()
-                                                , (int)(60 * _scale_px)
-                                                , (int)(60 * _scale_px)
-                                                , true);*/
 
                                         _draw_task.needRebuildBackground = true;
                                     }
@@ -7305,11 +6002,6 @@ public class MainActivity extends AppCompatActivity
 
                                 int info_count_draw = buffer.getInt();
 
-                                /*_len = ByteBuffer.allocate(1).array();
-                                System.arraycopy(r.data, offset, _len, 0, _len.length);
-                                offset += _len.length;
-
-                                byte exists_in_friends = _len[0];*/
                                 //----------------------------------------------------------------------
 
                                 count_ready += ready;
@@ -7322,8 +6014,6 @@ public class MainActivity extends AppCompatActivity
                                 if (uid == accout_info.uid)
                                 {
                                     _draw_task.getRoomInfo().my_userinfo.uid = uid;
-                                    //_draw_task.getRoomInfo().my_userinfo.user_name = user_name;
-                                    //_draw_task.getRoomInfo().my_userinfo.user_photo = _draw_task.getDefaultAvatar().copy( _draw_task.getDefaultAvatar().getConfig(), true );
 
                                     im_ready = (ready == 1) ? true : false;
                                 }
@@ -7331,14 +6021,9 @@ public class MainActivity extends AppCompatActivity
                                 {
                                     final RoomInfo_User uinfo = _draw_task.getUserFromOffsetPosition(k + 1);
 
-                                    /*Log.i("TAG54", "INFO_USERS_IN_ROOM " +
-                                            String.valueOf(uid) +
-                                            " " +
-                                            String.valueOf(_draw_task.getRoomInfo().users_in_room.size()) + " " + String.valueOf(k + 1));*/
-
                                     uinfo.ready = (ready == 1) ? true : false;
                                     uinfo.is_bot = (is_bot == 1) ? true : false;
-                                    //count_ready += ready;
+
                                     uinfo.init_user = true;
 
                                     uinfo.uid = uid;
@@ -7360,27 +6045,19 @@ public class MainActivity extends AppCompatActivity
                                             , uinfo.uname_draw_rect
                                     );
 
-                                    uinfo.info_raiting          = info_raiting;
-                                    uinfo.info_count_defeats    = info_count_defeats;
-                                    uinfo.info_count_draw       = info_count_draw;
-                                    uinfo.info_count_games      = info_count_games;
-                                    uinfo.info_count_wins       = info_count_wins;
+                                    uinfo.info_raiting = info_raiting;
+                                    uinfo.info_count_defeats = info_count_defeats;
+                                    uinfo.info_count_draw = info_count_draw;
+                                    uinfo.info_count_games = info_count_games;
+                                    uinfo.info_count_wins = info_count_wins;
 
                                     if (uinfo.user_photo == null)
                                     {
                                         uinfo.user_photo = _draw_task.getDefaultAvatar().copy(_draw_task.getDefaultAvatar().getConfig(), true);
-
-                                        /*uinfo.user_photo = Bitmap.createScaledBitmap(
-                                                  _draw_task.getDefaultAvatar()
-                                                , (int)(60 * _scale_px)
-                                                , (int)(60 * _scale_px)
-                                                , true);*/
                                     }
 
-                                    if ( ! uinfo.loaded_user_photo_from_url)
+                                    if (!uinfo.loaded_user_photo_from_url)
                                     {
-                                        //uinfo.exists_in_friends    = ( exists_in_friends == 1 ? true : false );
-
                                         String _url = user_photo;
 
                                         if (_url.startsWith("/"))
@@ -7397,7 +6074,7 @@ public class MainActivity extends AppCompatActivity
                                             {
                                                 Bitmap b = Utils.getBitmapFromURL(url);
 
-                                                if(b == null)
+                                                if (b == null)
                                                 {
                                                     b = Utils.getBitmapFromURL(url);
                                                 }
@@ -7462,18 +6139,6 @@ public class MainActivity extends AppCompatActivity
 
                             if (status_room == RoomSurfaceView.STATUS_ROOM_WAIT_START)
                             {
-                                /*Log.i("TAG54"
-                                        , String.valueOf(count_init)
-                                        + " "
-                                        + String.valueOf(count_users)
-                                        + " "
-                                        + String.valueOf(count_ready)
-                                        + " "
-                                        + String.valueOf( (timer_ready == null || !timer_ready.running) )
-                                        + " "
-                                        + String.valueOf( ! im_ready )
-                                );*/
-
                                 if (count_init == count_users && count_ready == count_users)
                                 {
                                     runOnUiThread(new Runnable()
@@ -7511,7 +6176,7 @@ public class MainActivity extends AppCompatActivity
                                             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                                             v.vibrate(30);
 
-                                            if (timer_ready == null || ! timer_ready.running)
+                                            if (timer_ready == null || !timer_ready.running)
                                             {
                                                 timer_ready = new TimerReady(pb_wait_readyPlay, 10);
                                                 timer_ready.start();
@@ -7672,33 +6337,6 @@ public class MainActivity extends AppCompatActivity
                             _draw_task.getRoomInfo().count_deck_of_cards = count_cards_in_desck;
                             _draw_task.draw_trump_card_in_the_deck = count_cards_in_desck > 0;
 
-                                /*synchronized (_draw_task.lock_animation_fly_money)
-                                {
-                                    for(int k = 0; k < _draw_task.getRoomInfo().users_in_room.size(); k++)
-                                    {
-                                        RoomInfo_User user = _draw_task.getRoomInfo().users_in_room.get(k);
-
-                                        for(int j = 0; j < 5; j++)
-                                        {
-                                            AnimationImgToUsers tm = new AnimationImgToUsers(
-                                                    _draw_task.getMoneyIcon()
-                                                    , 0
-                                                    , _draw_task.canvas_h2
-                                                    , (int) user.pos_x
-                                                    , (int) user.pos_y
-                                                    , j * 300 + k * 100
-                                            );
-
-                                            _draw_task.list_animation_fly_money.add(tm);
-                                        }
-
-
-                                    }
-
-                                    _draw_task.flag_animation_fly_money = true;
-                                }*/
-
-
                             _draw_task.hideWaitTime();
 
                             _draw_task.last_cmd_server = "START_GAME";
@@ -7717,8 +6355,6 @@ public class MainActivity extends AppCompatActivity
                             }
 
                             _draw_task.needRebuildBackground = true;
-
-                            //Log.i("TAG", String.valueOf(_draw_task.getRoomInfo().current_my_position) + " - " + String.valueOf(_draw_task.getRoomInfo().current_pos_user_xod));
 
                             if (_draw_task.getRoomInfo().current_my_position == _draw_task.getRoomInfo().current_pos_user_xod)
                             {
@@ -7747,7 +6383,7 @@ public class MainActivity extends AppCompatActivity
                                     v.vibrate(100);
                                 }
 
-                                if (app_setting.opt_sound_ready_stroke && myxod != null && ! call_phone)
+                                if (app_setting.opt_sound_ready_stroke && myxod != null && !call_phone)
                                 {
                                     myxod.start();
                                 }
@@ -7783,12 +6419,6 @@ public class MainActivity extends AppCompatActivity
                                 @Override
                                 public void run()
                                 {
-                                    /*ImageView iv = findViewById(R.id.iv_page_room_list_icons_open);
-                                    if (iv != null)
-                                    {
-                                        iv.setVisibility(View.VISIBLE);
-                                    }*/
-
                                     if (_draw_task != null)
                                     {
                                         _draw_task.StartGame();
@@ -7797,7 +6427,6 @@ public class MainActivity extends AppCompatActivity
                                     if (btn_ready_play_game != null)
                                     {
                                         btn_ready_play_game.setVisibility(View.GONE);
-                                        //ch_ready_play = null;
                                     }
                                 }
                             });
@@ -7899,14 +6528,6 @@ public class MainActivity extends AppCompatActivity
                     {
                         _draw_task.available_select_my_card = true;
                     }
-
-                    /*for (int k = 0; k < _draw_task.animated_card.size(); k++)
-                    {
-                        if (_draw_task.animated_card.get(k) != null)
-                        {
-                            _draw_task.animated_card.get(k).up = false;
-                        }
-                    }*/
                 }
                 else
                 {
@@ -7914,8 +6535,6 @@ public class MainActivity extends AppCompatActivity
                     {
                         _draw_task.available_select_my_card = false;
                     }
-
-
                 }
 
             }
@@ -7925,15 +6544,6 @@ public class MainActivity extends AppCompatActivity
             if (r.data != null)
             {
                 _draw_task.last_cmd_server = getString(R.string.cmd_8);
-
-                /*runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        ui_page_room_enable_all_btns(true);
-                    }
-                });*/
 
                 int offset = 0;
                 byte[] _len = ByteBuffer.allocate(1).array();
@@ -8192,18 +6802,6 @@ public class MainActivity extends AppCompatActivity
 
                 int uid_count_cards = _len[0];
 
-                /*int uid_to_transfer_foll = 0;
-
-                if( _draw_task.getRoomInfo().type_game == RoomInfo.TYPE_GAME__TRANSFER_FOOL )
-                {
-                    System.arraycopy(r.data, offset, _len, 0, _len.length); offset += _len.length;
-
-                    buffer = ByteBuffer.wrap(_len);
-                    buffer.order(ByteOrder.BIG_ENDIAN);
-
-                    uid_to_transfer_foll = buffer.getInt();
-                }*/
-
                 if (_draw_task != null)
                 {
                     _draw_task.getRoomInfo().current_pos_user_xod = current_pos_user_xod;
@@ -8233,55 +6831,12 @@ public class MainActivity extends AppCompatActivity
 
                     RoomInfo_User ruinfo = _draw_task.getUserFromOffsetPosition(toss_user);
 
-                    /*if (
-                             _draw_task.getRoomInfo().current_my_position == _draw_task.getRoomInfo().current_pos_user_beat
-                         &&  current_pos_user_beat_press_bery == 0
-                       )
-                    {
-                        //action_end_animation_fly = ACTION_END_ANIMATION_FLY_SHOW_BTN_BERY;
-
-                        Thread th = new Thread(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                do
-                                {
-                                    try
-                                    {
-                                        Thread.sleep(200);
-                                    }
-                                    catch (InterruptedException e)
-                                    {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                while( _draw_task.waitFlyCardToBoard() );
-
-                                runOnUiThread(new Runnable()
-                                {
-                                    @Override
-                                    public void run()
-                                    {
-                                        Button btn_bery = (Button) findViewById(R.id.btn_page_room_bery);
-
-                                        if( btn_bery == null ) { return; }
-
-                                        btn_bery.setVisibility(View.VISIBLE);
-                                    }
-                                });
-                            }
-                        });
-                    }*/
-
                     _draw_task.run_tossed_xod(ruinfo, card, true);
                 }
             }
         }
         else if (r.cmd.equalsIgnoreCase("RUN_BEATS_XOD"))
         {
-            //if (r.data != null)
-            {
                 if (_draw_task != null)
                 {
                     _draw_task.last_cmd_server = "RUN_BEATS_XOD";
@@ -8291,7 +6846,7 @@ public class MainActivity extends AppCompatActivity
                     _draw_task.mode_toss2 = 0;
                 }
 
-                if( _draw_task != null )
+                if (_draw_task != null)
                 {
                     ui_start_timer_waiting_xod(WAIT_SECOND + _draw_task.getRoomInfo().my_userinfo.cards_user.size());
 
@@ -8322,11 +6877,10 @@ public class MainActivity extends AppCompatActivity
                     v.vibrate(20);
                 }
 
-                if (app_setting.opt_sound_ready_stroke && myxod != null && ! call_phone)
+                if (app_setting.opt_sound_ready_stroke && myxod != null && !call_phone)
                 {
                     myxod.start();
                 }
-            }
         }
         else if (r.cmd.equalsIgnoreCase(getString(R.string.cmd_9)))
         {
@@ -8434,8 +6988,6 @@ public class MainActivity extends AppCompatActivity
 
                     int can_toss = _len[0];
 
-                    //Log.i("TAG36", String.valueOf(can_toss));
-
                     if (can_toss == 1 && _draw_task != null)
                     {
                         _draw_task.available_select_my_card = true;
@@ -8448,7 +7000,7 @@ public class MainActivity extends AppCompatActivity
                             v.vibrate(20);
                         }
 
-                        if (app_setting.opt_sound_ready_stroke && myxod != null && ! call_phone)
+                        if (app_setting.opt_sound_ready_stroke && myxod != null && !call_phone)
                         {
                             myxod.start();
                         }
@@ -8636,32 +7188,7 @@ public class MainActivity extends AppCompatActivity
                                     }
                                 });
                             }
-                            else
-                            {
-                                //action_end_animation_fly = ACTION_END_ANIMATION_FLY_SHOW_BTN_THAT_ALL;
 
-                                /*Thread th = new Thread(new Runnable()
-                                {
-                                    @Override
-                                    public void run()
-                                    {
-                                        do
-                                        {
-                                            try
-                                            {
-                                                Thread.sleep(200);
-                                            }
-                                            catch (InterruptedException e)
-                                            {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                        while( _draw_task != null && _draw_task.waitFlyCardToBoard() );
-
-                                        ui_show_btn_only__that_s_all();
-                                    }
-                                });*/
-                            }
                         }
                     }
 
@@ -8751,7 +7278,7 @@ public class MainActivity extends AppCompatActivity
 
                                     if (_draw_task.getRoomInfo().allCardsIsBeated())
                                     {
-                                         ui_page_room_show_btn(TYPE_BTN_BITO);
+                                        ui_page_room_show_btn(TYPE_BTN_BITO);
                                     }
                                 }
                             });
@@ -8762,7 +7289,7 @@ public class MainActivity extends AppCompatActivity
                                 v.vibrate(20);
                             }
 
-                            if (app_setting.opt_sound_ready_stroke && myxod != null && ! call_phone)
+                            if (app_setting.opt_sound_ready_stroke && myxod != null && !call_phone)
                             {
                                 myxod.start();
                             }
@@ -8850,7 +7377,6 @@ public class MainActivity extends AppCompatActivity
                         if (_draw_task.getRoomInfo().my_userinfo.uid == __uid)
                         {
                             _draw_task.getRoomInfo().my_userinfo.tmp_count_cards = __count_cards;
-                            //_draw_task.needRebuildBackground = true;
                         }
                         else
                         {
@@ -8863,8 +7389,6 @@ public class MainActivity extends AppCompatActivity
 
                 _draw_task.getRoomInfo().status_room = status_room;
                 _draw_task.resetHoveredCardSelected();
-                //_draw_task.needRebuildBackground = true;
-                //_draw_task.getRoomInfo().my_userinfo.cached_draw_my_cards = false;
 
                 _draw_task.getRoomInfo().count_bito_bery = count_bito_bery;
                 _draw_task.getRoomInfo().count_deck_of_cards = count_cards_in_desck;
@@ -8895,18 +7419,14 @@ public class MainActivity extends AppCompatActivity
 
                 _draw_task.resetAllUsersTimers();
 
-                //Log.i("TAG36", "STATUS_ROOM: " + String.valueOf(beat_now_xod) + " " + String.valueOf(_draw_task.getRoomInfo().current_my_position == _draw_task.getRoomInfo().current_pos_user_xod));
-
                 if (
                         beat_now_xod == 0
                                 && (
                                 _draw_task.getRoomInfo().current_my_position == _draw_task.getRoomInfo().current_pos_user_xod
                                 //|| _draw_task.getRoomInfo().current_my_position == _draw_task.getRoomInfo().current_pos_user_beat
                         )
-                        )
+                )
                 {
-                    //Log.i("TAG36", "a)");
-
                     _draw_task.available_select_my_card = true;
 
                     _draw_task.mode_toss2 = 0;
@@ -8916,10 +7436,7 @@ public class MainActivity extends AppCompatActivity
                         _draw_task.highLightResetAll();
                     }
 
-                    //if( count_cards_in_board == 0 )
-                    //{
                     ui_start_timer_waiting_xod(WAIT_SECOND + _draw_task.getRoomInfo().my_userinfo.tmp_count_cards);
-                    //}
 
                     runOnUiThread(new Runnable()
                     {
@@ -8942,15 +7459,13 @@ public class MainActivity extends AppCompatActivity
                         v.vibrate(20);
                     }
 
-                    if (app_setting.opt_sound_ready_stroke && myxod != null && ! call_phone)
+                    if (app_setting.opt_sound_ready_stroke && myxod != null && !call_phone)
                     {
                         myxod.start();
                     }
                 }
                 else
                 {
-                    //Log.i("TAG36", "b)");
-
                     if (beat_now_xod == 1 && _draw_task.getRoomInfo().current_my_position == _draw_task.getRoomInfo().current_pos_user_beat)
                     {
                         //Log.i("TAG36", "c)");
@@ -9105,23 +7620,12 @@ public class MainActivity extends AppCompatActivity
                         }
                         ci.timestamp_add = 0;
 
-                        /*if( _draw_task.getRoomInfo().validateTossXodOnBoard( ci.card ) )
-                        {
-                            ci.draw_icon_tossed_card = true;
-                        }*/
-
                         _draw_task.getRoomInfo().my_userinfo.resetMatrixDrawCardsUser();
                         _draw_task.getRoomInfo().my_userinfo.cards_user.add(ci);
                         _draw_task.getRoomInfo().my_userinfo.cards_points.add(cp);
                     }
 
-                    /**/
                 }
-
-                /*_len = ByteBuffer.allocate(1).array();
-                System.arraycopy(r.data, offset, _len, 0, _len.length);  offset += _len.length;
-
-                int current_pos_user_xod = _len[0];*/
 
                 _len = ByteBuffer.allocate(1).array();
                 System.arraycopy(r.data, offset, _len, 0, _len.length);
@@ -9129,8 +7633,6 @@ public class MainActivity extends AppCompatActivity
 
                 ///кто берет карты
                 final int current_pos_user_beat = _len[0];
-
-                /**/
 
                 //---------------------
 
@@ -9225,7 +7727,7 @@ public class MainActivity extends AppCompatActivity
 
                             _draw_task.animation_fly_card_off_board = true;
 
-                            if (app_setting.opt_sound_in_game && deal_gin != null && ! call_phone)
+                            if (app_setting.opt_sound_in_game && deal_gin != null && !call_phone)
                             {
                                 deal_gin.start();
                             }
@@ -9236,14 +7738,14 @@ public class MainActivity extends AppCompatActivity
 
                             if (_draw_task.animated_card_desk.size() > 4)
                             {
-                                if (app_setting.opt_sound_in_game && fly_card_to_users != null && ! call_phone)
+                                if (app_setting.opt_sound_in_game && fly_card_to_users != null && !call_phone)
                                 {
                                     fly_card_to_users.start();
                                 }
                             }
                             else
                             {
-                                if (app_setting.opt_sound_in_game && fly_card_to_users_2 != null && ! call_phone)
+                                if (app_setting.opt_sound_in_game && fly_card_to_users_2 != null && !call_phone)
                                 {
                                     fly_card_to_users_2.start();
                                 }
@@ -9387,46 +7889,7 @@ public class MainActivity extends AppCompatActivity
                         _draw_task.getRoomInfo().my_userinfo.cards_points.add(cp);
                         _draw_task.getRoomInfo().my_userinfo.resetMatrixDrawCardsUser();
                     }
-
-                    /*
-                    // TODO: NOT USED
-                    int sotr_cards = app_setting.opt_sort_my_cards;
-
-
-                    if( sotr_cards == AppSettings.SORT_MY_CARDS_ABC)
-                    {
-                        _draw_task.getRoomInfo().my_userinfo.sortCardsABC();
-                    }
-                    else if( sotr_cards == AppSettings.SORT_MY_CARDS_DESC)
-                    {
-                        _draw_task.getRoomInfo().my_userinfo.sortCardsDESC();
-                    }
-
-                    //******************************************************************************
-
-                    int sort_trump_catds = app_setting.opt_sort_trump_cards;
-
-                    if( sort_trump_catds == AppSettings.SORT_TRUMP_CARDS_LEFT )
-                    {
-                        _draw_task.getRoomInfo().my_userinfo.sortTrumpCardsLeft( _draw_task.getRoomInfo().trump_card_in_the_deck );
-                    }
-                    else if( sort_trump_catds == AppSettings.SORT_TRUMP_CARDS_RIGHT )
-                    {
-                        _draw_task.getRoomInfo().my_userinfo.sortTrumpCardsOnRight( _draw_task.getRoomInfo().trump_card_in_the_deck );
-                    }
-
-                    _draw_task.needRebuildBackground = true;*/
                 }
-
-                /*_len = ByteBuffer.allocate(1).array();
-                System.arraycopy(r.data, offset, _len, 0, _len.length);  offset += _len.length;
-
-                int current_pos_user_xod = _len[0];
-
-                _len = ByteBuffer.allocate(1).array();
-                System.arraycopy(r.data, offset, _len, 0, _len.length);  offset += _len.length;
-
-                int current_pos_user_beat = _len[0];*/
 
                 //---------------------
 
@@ -9504,7 +7967,7 @@ public class MainActivity extends AppCompatActivity
                             //_draw_task.getRoomInfo().cache_draw_cards_board = false;
                             _draw_task.animation_fly_card_off_board = true;
 
-                            if (app_setting.opt_sound_in_game && deal_gin != null && ! call_phone)
+                            if (app_setting.opt_sound_in_game && deal_gin != null && !call_phone)
                             {
                                 deal_gin.start();
                             }
@@ -9515,14 +7978,14 @@ public class MainActivity extends AppCompatActivity
 
                             if (_draw_task.animated_card_desk.size() > 4)
                             {
-                                if (app_setting.opt_sound_in_game && fly_card_to_users != null && ! call_phone)
+                                if (app_setting.opt_sound_in_game && fly_card_to_users != null && !call_phone)
                                 {
                                     fly_card_to_users.start();
                                 }
                             }
                             else
                             {
-                                if (app_setting.opt_sound_in_game && fly_card_to_users_2 != null && ! call_phone)
+                                if (app_setting.opt_sound_in_game && fly_card_to_users_2 != null && !call_phone)
                                 {
                                     fly_card_to_users_2.start();
                                 }
@@ -9530,41 +7993,24 @@ public class MainActivity extends AppCompatActivity
 
                             _draw_task.mode_toss2 = 0;
 
-                            //ui_page_room_hide_all_btns();
-
                             _draw_task.needRebuildBackground = true;
                             _draw_task.getRoomInfo().my_userinfo.cached_draw_my_cards = false;
-
-                            /*runOnUiThread(new Runnable()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    ui_stop_timer_waiting_xod();
-                                }
-                            });*/
                         }
                     }
                 });
 
                 th.start();
 
-
-                //_draw_task.resetAnimationOffsetCardBoards();
-
-                //--------------
             }
         }
         else if (
                 (r.cmd.equalsIgnoreCase("RUN_TOSS_2_XOD"))
                         || (r.cmd.equalsIgnoreCase("RUN_TOSS_3_XOD"))
-                )
+        )
         {
             if (_draw_task != null && r.data != null)
             {
                 _draw_task.last_cmd_server = r.cmd;
-
-                //_draw_task.getRoomInfo().current_pos_user_xod = _draw_task.getRoomInfo().current_my_position;
 
                 _draw_task.releaseUp();
                 _draw_task.resetAllUsersTimers();
@@ -9628,57 +8074,12 @@ public class MainActivity extends AppCompatActivity
                     v.vibrate(20);
                 }
 
-                if (app_setting.opt_sound_ready_stroke && myxod != null && ! call_phone)
+                if (app_setting.opt_sound_ready_stroke && myxod != null && !call_phone)
                 {
                     myxod.start();
                 }
             }
         }
-        /*else if (r.cmd.equalsIgnoreCase("RUN_TOSS_3_XOD"))
-        {
-            if( _draw_task != null )
-            {
-                _draw_task.last_cmd_server = "RUN_TOSS_3_XOD";
-
-                _draw_task.available_select_my_card   = false;
-                _draw_task.mode_toss2                 = 2;
-                _draw_task.getRoomInfo().current_pos_user_xod = _draw_task.getRoomInfo().current_my_position;
-
-                _draw_task.releaseUp();
-                _draw_task.resetAllUsersTimers();
-
-                _draw_task.highLightResetAll();
-                _draw_task.highLightTossedMyCards();
-
-                Log.i("TAG", "start ____");
-
-                ui_show_btn_only__that_s_all();
-
-                //Log.i("TAG", "start ___+");
-
-                runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        //Log.i("TAG", "start ++++");
-
-                        TextView tv_0 = (TextView) findViewById(R.id.tv_page_room_status_txt2);
-
-                        if(tv_0 != null)
-                        {
-                            tv_0.setText( getString(R.string.txt_85) );
-                        }
-
-                        //Log.i("TAG", "start 00000");
-                    }
-                });
-
-                ui_start_timer_waiting_xod(WAIT_SECOND + _draw_task.getRoomInfo().my_userinfo.cards_user.size());
-
-                _draw_task.available_select_my_card   = true;
-            }
-        }*/
         else if (r.cmd.equalsIgnoreCase("SET_ICON_FROM_USER"))
         {
             if (_draw_task != null && r.data != null)
@@ -9814,7 +8215,7 @@ public class MainActivity extends AppCompatActivity
                     v.vibrate(20);
                 }
 
-                if (app_setting.opt_sound_ready_stroke && myxod != null && ! call_phone)
+                if (app_setting.opt_sound_ready_stroke && myxod != null && !call_phone)
                 {
                     myxod.start();
                 }
@@ -9855,7 +8256,7 @@ public class MainActivity extends AppCompatActivity
                     v.vibrate(20);
                 }
 
-                if (app_setting.opt_sound_ready_stroke && myxod != null && ! call_phone)
+                if (app_setting.opt_sound_ready_stroke && myxod != null && !call_phone)
                 {
                     myxod.start();
                 }
@@ -9896,7 +8297,7 @@ public class MainActivity extends AppCompatActivity
                     v.vibrate(20);
                 }
 
-                if (app_setting.opt_sound_ready_stroke && myxod != null && ! call_phone)
+                if (app_setting.opt_sound_ready_stroke && myxod != null && !call_phone)
                 {
                     myxod.start();
                 }
@@ -9969,14 +8370,6 @@ public class MainActivity extends AppCompatActivity
                 _draw_task.getRoomInfo().current_pos_user_beat = current_pos_user_beat;
                 _draw_task.getRoomInfo().current_pos_user_main_xod = current_pos_user_main_xod;
 
-                /*for (int k = 0; k < _draw_task.animated_card.size(); k++)
-                {
-                    if (_draw_task.animated_card.get(k) != null)
-                    {
-                        _draw_task.animated_card.get(k).up = false;
-                    }
-                }*/
-
                 _draw_task.resetAllUsersTimers();
                 RoomInfo_User ri = _draw_task.getUserFromOffsetPosition(_draw_task.getRoomInfo().current_pos_user_xod);
                 ri.startTimer(WAIT_SECOND + 6);
@@ -9989,14 +8382,6 @@ public class MainActivity extends AppCompatActivity
                     public void run()
                     {
                         ui_page_room_hide_all_btns();
-
-                        /*Log.d("TAG67", android.util.Log.getStackTraceString(new Exception()));
-                        TextView tv_0 = (TextView) findViewById(R.id.tv_page_room_status_txt2);
-
-                        if(tv_0 != null)
-                        {
-                            tv_0.setText("");
-                        }*/
                     }
                 });
             }
@@ -10052,7 +8437,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     _draw_task.flyMoneyUsers(fm);
 
-                    if (app_setting.opt_sound_in_game && sound_coins != null && uid == accout_info.uid && ! call_phone)
+                    if (app_setting.opt_sound_in_game && sound_coins != null && uid == accout_info.uid && !call_phone)
                     {
                         sound_coins.start();
                     }
@@ -10144,12 +8529,6 @@ public class MainActivity extends AppCompatActivity
                     uinfo.first_name = first_name;
                     uinfo.last_name = last_name;
                     uinfo.avatar = _draw_task.getDefaultAvatar().copy(_draw_task.getDefaultAvatar().getConfig(), true);
-
-                    /*uinfo.avatar = Bitmap.createScaledBitmap(
-                              _draw_task.getDefaultAvatar()
-                            , (int)(60 * _scale_px)
-                            , (int)(60 * _scale_px)
-                            , true);*/
 
                     uinfo.photo_url = user_photo;
                     uinfo.iv = new ImageView(MainActivity.this);
@@ -10283,8 +8662,6 @@ public class MainActivity extends AppCompatActivity
                                     fm.add(new FlyMoneyInfo(uid
                                             , "+"
                                             + (new DecimalFormat("#.#").format(add_money))
-                                            //+ " "
-                                            //+ Utils.getCorrectSuffix( (int) add_money, getResources().getString(R.string.txt_68), getResources().getString(R.string.txt_69), getResources().getString(R.string.txt_70))
                                     ));
 
                                     if (uid == accout_info.uid)
@@ -10292,13 +8669,13 @@ public class MainActivity extends AppCompatActivity
                                         runAnimationNumber((int) accout_info.balans, old_balans);
                                     }
 
-                                    if (app_setting.opt_sound_in_game && sound_coins != null && uid == accout_info.uid && ! call_phone)
+                                    if (app_setting.opt_sound_in_game && sound_coins != null && uid == accout_info.uid && !call_phone)
                                     {
                                         sound_coins.start();
                                     }
                                 }
 
-                                if (app_setting.opt_sound_in_game && sound_coins != null && uid == accout_info.uid && ! call_phone)
+                                if (app_setting.opt_sound_in_game && sound_coins != null && uid == accout_info.uid && !call_phone)
                                 {
                                     sound_coins.start();
                                 }
@@ -10323,7 +8700,7 @@ public class MainActivity extends AppCompatActivity
                                                     , (int) (ru_defer.pos_y - _draw_task.joker.getHeight() - 5 * _draw_task._scale_pixel)
                                             );
 
-                                            if (app_setting.opt_sound_in_game && sound_game_over != null && ! call_phone)
+                                            if (app_setting.opt_sound_in_game && sound_game_over != null && !call_phone)
                                             {
                                                 sound_game_over.start();
                                             }
@@ -10360,9 +8737,6 @@ public class MainActivity extends AppCompatActivity
                                     _draw_task.getRoomInfo().resetAllUsersReady();
                                 }
 
-                                //if( out_of_room == 0 )
-                                {
-
 
                                     runOnUiThread(new Runnable()
                                     {
@@ -10372,7 +8746,7 @@ public class MainActivity extends AppCompatActivity
                                             ui_page_room_hide_all_btns();
                                             ui_stop_timer_waiting_xod();
 
-                                            if (       out_of_room == 0
+                                            if (out_of_room == 0
                                                     && _draw_task != null
                                                     && _draw_task.getRoomInfo().allUsersInit())
                                             {
@@ -10408,7 +8782,7 @@ public class MainActivity extends AppCompatActivity
 
                                         }
                                     });
-                                }
+
                             }
 
                             if (_draw_task != null && (accout_info.balans == 0 || accout_info.balans < _draw_task.getRoomInfo().rate))
@@ -10456,52 +8830,17 @@ public class MainActivity extends AppCompatActivity
                     {
                         alert_dialog_out_of_room.dismiss();
                     }
-
-                    /*AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                    builder.setTitle("Конец игры");
-
-                    builder.setPositiveButton("Да", new DialogInterface.OnClickListener()
-                    {
-
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            signOut();
-                            dialog.dismiss();
-                        }
-                    });
-
-                    AlertDialog alert = builder.create();
-                    alert.show();*/
                 }
             });
 
             getMyBalans();
         }
-        //**********
 
     }
 
 
-    /*public void my_avatar_icon_redraw()
-    {
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                if (my_avatar_icon != null)
-                {
-                    my_avatar_icon.invalidate();
-                }
-            }
-        });
-    }*/
-
     private void runAnimationNumber(int new_balans, int old_balans)
     {
-        //Log.i("TAG455",  String.valueOf(new_balans) + " " + String.valueOf(old_balans) );
-
         if (old_balans == new_balans)
         {
             return;
@@ -10629,8 +8968,7 @@ public class MainActivity extends AppCompatActivity
                 DataOutputStream output = new DataOutputStream(sock.getOutputStream());
                 output.write(b_cmd);
                 output.flush();
-            } 
-            catch (IOException e)
+            } catch (IOException e)
             {
                 e.printStackTrace();
             }
@@ -10785,7 +9123,7 @@ public class MainActivity extends AppCompatActivity
 
                     String _token = new String(_len);
 
-                    if( _token.trim().length() > 0 )
+                    if (_token.trim().length() > 0)
                     {
                         token = _token;
 
@@ -10863,15 +9201,12 @@ public class MainActivity extends AppCompatActivity
 
                     last_count_online = count_online;
 
-                    //app_setting.db.setKeyValue("init_ok", "1");
-
                     runOnUiThread(new Runnable()
                     {
                         @Override
                         public void run()
                         {
                             show_page_menu();
-                            //setUiCountOnline(last_count_online);
                         }
                     });
 
@@ -10881,20 +9216,11 @@ public class MainActivity extends AppCompatActivity
 
                     if (!isMyServiceRunning(MyService.class))
                     {
-                        /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
-                        {
-                            MainActivity.this.startForegroundService(new Intent( MainActivity.this, MyService.class));
-                        }
-                        else*/
-                        //{
-                            startService(new Intent( MainActivity.this, MyService.class));
-                        //}
+                        startService(new Intent(MainActivity.this, MyService.class));
                     }
                 }
                 else
                 {
-                    //app_setting.db.setKeyValue("init_ok", "0");
-                    //connection_server();
                     runOnUiThread(new Runnable()
                     {
                         @Override
@@ -10902,7 +9228,7 @@ public class MainActivity extends AppCompatActivity
                         {
                             db.setKeyValue(getString(R.string.cmd_1), "0");
 
-                            if( network != null )
+                            if (network != null)
                             {
                                 network.OnDestroy();
                                 network = null;
@@ -11101,16 +9427,6 @@ public class MainActivity extends AppCompatActivity
                     offset += _len.length;
 
                     String last_name = new String(_len);
-                    //----------------------------------------------------
-                    /*_len = ByteBuffer.allocate(4).array();
-
-                    System.arraycopy(r.data, offset, _len, 0, _len.length); offset += _len.length;
-
-                    buffer = ByteBuffer.wrap(_len);
-                    buffer.order(ByteOrder.BIG_ENDIAN);
-
-                    final int raiting = buffer.getInt();
-                    //----------------------------------------------------*/
 
                     SearchItem item = new SearchItem();
                     item.uid = uid;
@@ -11275,7 +9591,8 @@ public class MainActivity extends AppCompatActivity
                 int offset = 0;
                 byte[] _len = ByteBuffer.allocate(4).array();
 
-                System.arraycopy(r.data, offset, _len, 0, _len.length); offset += _len.length;
+                System.arraycopy(r.data, offset, _len, 0, _len.length);
+                offset += _len.length;
 
                 ByteBuffer buffer = ByteBuffer.wrap(_len);
                 buffer.order(ByteOrder.BIG_ENDIAN);
@@ -11283,34 +9600,37 @@ public class MainActivity extends AppCompatActivity
                 accout_info.balans = buffer.getInt();
 
                 //--------------------------------------------
-                System.arraycopy(r.data, offset, _len, 0, _len.length); offset += _len.length;
+                System.arraycopy(r.data, offset, _len, 0, _len.length);
+                offset += _len.length;
 
                 buffer = ByteBuffer.wrap(_len);
                 buffer.order(ByteOrder.BIG_ENDIAN);
 
                 accout_info.count_games = buffer.getInt();
                 //--------------------------------------------
-                System.arraycopy(r.data, offset, _len, 0, _len.length); offset += _len.length;
+                System.arraycopy(r.data, offset, _len, 0, _len.length);
+                offset += _len.length;
 
                 buffer = ByteBuffer.wrap(_len);
                 buffer.order(ByteOrder.BIG_ENDIAN);
 
                 accout_info.count_draw = buffer.getInt();
                 //--------------------------------------------
-                System.arraycopy(r.data, offset, _len, 0, _len.length); offset += _len.length;
+                System.arraycopy(r.data, offset, _len, 0, _len.length);
+                offset += _len.length;
 
                 buffer = ByteBuffer.wrap(_len);
                 buffer.order(ByteOrder.BIG_ENDIAN);
 
                 accout_info.count_wins = buffer.getInt();
                 //--------------------------------------------
-                System.arraycopy(r.data, offset, _len, 0, _len.length); offset += _len.length;
+                System.arraycopy(r.data, offset, _len, 0, _len.length);
+                offset += _len.length;
 
                 buffer = ByteBuffer.wrap(_len);
                 buffer.order(ByteOrder.BIG_ENDIAN);
 
                 accout_info.raiting = buffer.getInt();
-                //--------------------------------------------
                 //--------------------------------------------
 
                 runOnUiThread(new Runnable()
@@ -11357,8 +9677,6 @@ public class MainActivity extends AppCompatActivity
                 offset += _len.length;
 
                 int count_users = _len[0];
-
-                //final List<FriendItem> friend_list = new ArrayList<>();
 
                 map_ui_friends.clear();
                 friend_list.clear();
@@ -11567,20 +9885,6 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     Toast.makeText(MainActivity.this, getString(R.string.txt_86), Toast.LENGTH_LONG).show();
-
-                    /*if (r.data != null)
-                    {
-                        int offset = 0;
-                        byte[] _len = ByteBuffer.allocate(4).array();
-
-                        System.arraycopy(r.data, offset, _len, 0, _len.length);
-                        offset += _len.length;
-
-                        ByteBuffer buffer = ByteBuffer.wrap(_len);
-                        buffer.order(ByteOrder.BIG_ENDIAN);
-
-                        final int rate = buffer.getInt();
-                    }*/
                 }
             });
 
@@ -11784,11 +10088,6 @@ public class MainActivity extends AppCompatActivity
 
                 if (ss.equals("OK"))
                 {
-                    /*_len = ByteBuffer.allocate(1).array();
-                    System.arraycopy(r.data, offset, _len, 0, _len.length); offset += _len.length;
-
-                    final int position_in_room = _len[0];*/
-
                     _len = ByteBuffer.allocate(8).array();
                     System.arraycopy(r.data, offset, _len, 0, 8);
                     offset += _len.length;
@@ -11968,96 +10267,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     ///*********************************************************************************************
-    /*public class AnimatedBkCards extends View
-    {
-        private float STEP_SIZE;
-
-        Bitmap card_bk_SPADE    = null;
-        Bitmap card_bk_CLUB     = null;
-        Bitmap card_bk_HEART    = null;
-        Bitmap card_bk_DIAMOND  = null;
-
-        Paint paint_drawBitmap  = null;
-        int bk_color;
-
-        boolean init = false;
-        int canvas_w, canvas_h;
-
-        int offset_1 = 0;
-
-        private Bitmap getIconByIndex(int index)
-        {
-            switch (index)
-            {
-                case 0:  return card_bk_CLUB;
-                case 1:  return card_bk_SPADE;
-                case 2:  return card_bk_DIAMOND;
-                default: return card_bk_HEART;
-            }
-        }
-
-        public AnimatedBkCards(Context context)
-        {
-            super(context);
-
-            float scale_pr = 90f;
-
-            STEP_SIZE = 50 * ((MainActivity)context).get_scale_px();
-
-            bk_color = Color.parseColor("#00a2d3");
-
-            paint_drawBitmap = new Paint();
-            paint_drawBitmap.setAntiAlias(true);
-            paint_drawBitmap.setFilterBitmap(true);
-            paint_drawBitmap.setDither(true);
-
-            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.bk_spade);
-            card_bk_SPADE = bmp.createScaledBitmap(bmp, (int) (bmp.getWidth() * scale_pr / 100f), (int) (bmp.getHeight() * scale_pr / 100f), true);
-
-            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.bk_club);
-            card_bk_CLUB = bmp.createScaledBitmap(bmp, (int) (bmp.getWidth() * scale_pr / 100f), (int) (bmp.getHeight() * scale_pr / 100f), true);
-
-            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.bk_heart);
-            card_bk_HEART = bmp.createScaledBitmap(bmp, (int) (bmp.getWidth() * scale_pr / 100f), (int) (bmp.getHeight() * scale_pr / 100f), true);
-
-            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.bk_diamond);
-            card_bk_DIAMOND = bmp.createScaledBitmap(bmp, (int) (bmp.getWidth() * scale_pr / 100f), (int) (bmp.getHeight() * scale_pr / 100f), true);
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas)
-        {
-            super.onDraw(canvas);
-
-            if( ! init )
-            {
-                canvas_w = getWidth();
-                canvas_h = getHeight();
-                init = true;
-            }
-
-            canvas.drawColor(bk_color);
-
-            for(int i = offset_1, k = 0; i < canvas_w; i += STEP_SIZE)
-            {
-                canvas.drawBitmap( getIconByIndex(k), i, 20, paint_drawBitmap);
-                k += 1;
-
-                if( k > 3) { k = 0; }
-            }
-
-            for(int i = offset_1, k = 3; i > 0; i -= STEP_SIZE)
-            {
-                canvas.drawBitmap( getIconByIndex(k), i, 20, paint_drawBitmap);
-                k -= 1;
-
-                if( k < 0) { k = 3; }
-            }
-
-            offset_1 += 1;
-        }
-    }*/
-    ///*********************************************************************************************
     class TimerReady extends Thread
     {
         public boolean running = true;
@@ -12083,13 +10292,12 @@ public class MainActivity extends AppCompatActivity
                 try
                 {
                     Thread.sleep(100);
-                }
-                catch (InterruptedException e)
+                } catch (InterruptedException e)
                 {
                     e.printStackTrace();
                 }
 
-                if( _draw_task == null )
+                if (_draw_task == null)
                 {
                     return;
                 }
@@ -12113,7 +10321,7 @@ public class MainActivity extends AppCompatActivity
                                             , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
                                             , QueueNetwork.TYPE_SEND__FORCE);
 
-                                    if(_draw_task != null)
+                                    if (_draw_task != null)
                                     {
                                         _draw_task._stop_draw = true;
                                     }
@@ -12183,7 +10391,7 @@ public class MainActivity extends AppCompatActivity
 
             while (running)
             {
-                if(_draw_task == null)
+                if (_draw_task == null)
                 {
                     return;
                 }
@@ -12247,65 +10455,6 @@ public class MainActivity extends AppCompatActivity
         {
         }
     }
-
-/*
-    @Override
-    public void onUnityAdsReady(String s)
-    {
-        //Toast.makeText(MainActivity.this, "onUnityAdsReady: " + s,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onUnityAdsStart(String s)
-    {
-        //Toast.makeText(MainActivity.this, "onUnityAdsStart: " + s,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onUnityAdsFinish(String s, UnityAds.FinishState finishState)
-    {
-        //Toast.makeText(MainActivity.this, "onUnityAdsFinish: " + s,Toast.LENGTH_SHORT).show();
-
-        ArrayList<String> params = new ArrayList<String>();
-
-        params.add(String.valueOf(accout_info.uid));
-        params.add(String.valueOf(session_info.session_socket_id));
-        params.add(String.valueOf(10 + 100 + 90));
-
-        network.queue_network.add(JniApi.k1()
-                , params
-                , null
-                , ClassNetWork.GAME_NET_WORK__OUTPUT_PRIORITY_MEDIUM
-                , QueueNetwork.TYPE_SEND__LONG);
-
-        WaitThread wt = new WaitThread(800)
-        {
-            @Override
-            public void callback()
-            {
-                getMyBalans();
-            }
-        };
-        wt.start();
-
-        if( ! showed_salute )
-        {
-            showed_salute = true;
-            runAnimationAfterVideoAd();
-        }
-        else
-        {
-            if (app_setting.opt_sound_in_game && cachbox != null) {
-                cachbox.start();
-            }
-        }
-    }
-
-    @Override
-    public void onUnityAdsError(UnityAds.UnityAdsError unityAdsError, String s)
-    {
-        //Toast.makeText(MainActivity.this, "onUnityAdsError: " + s,Toast.LENGTH_SHORT).show();
-    }*/
 }
 
 
